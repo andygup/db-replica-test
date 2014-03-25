@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>Replica</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.8/js/esri/css/esri.css">
+    <style>
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #FFF;
+            overflow: hidden;
+            font-family: "Trebuchet MS";
+        }
+        #button-div1{
+            position: relative;
+            background: #000000;
+            color: #ffffff;
+            width: 100%;
+            height: 40px;
+        }
+        #btn-get-tiles{
+            position: relative; float: right;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.8/"></script>
+    <script>
+        var map;
+        var layersRequest;
+        var btnGetReplica;
+
+        require(["esri/map","esri/request", "dojo/domReady!"], function(Map,esriRequest) {
+            map = new Map("map", {
+                basemap: "topo",
+                center: [-104.98,39.74], // long, lat
+                zoom: 13,
+                sliderStyle: "small"
+            });
+
+            btnGetReplica = document.getElementById("btn-get-tiles");
+
+            btnGetReplica.onclick = function(evt){
+                getReplica();
+            }.bind(this)
+
+
+            function getReplica(){
+                var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
+                var layerUrl = "http://services1.arcgis.com/M8KJPUwAXP8jhtnM/arcgis/rest/services/b_cycle_stations/FeatureServer/0/createReplica";
+                var layersRequest = esriRequest({
+                    url: layerUrl,
+                    content: {
+                        f: "json",
+                        layers:"0",
+                        geometry:extent,
+                        geometryType:"esriGeometryEnvelope",
+                        inSR:"102100",
+                        transportType: "esriTransportTypeEmbedded",
+                        returnAttachments:true
+                    },
+                    handleAs: "json",
+                    callbackParamName: "callback"
+                },{usePost:true});
+                layersRequest.then(
+                        function(response) {
+                            console.log("Success: ", response.layers);
+                        }, function(error) {
+                            console.log("Error: ", error.message);
+                        });
+            }
+        });
+    </script>
+</head>
+
+<body>
+<div id="button-div1">
+    <button id="btn-get-tiles">Get Replica</button>
+</div>
+<div id="map"></div>
+</body>
+</html>
