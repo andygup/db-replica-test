@@ -36,7 +36,8 @@
         var layersRequest;
         var btnGetReplica;
 
-        require(["esri/map","esri/request", "dojo/domReady!"], function(Map,esriRequest) {
+        require(["esri/map","esri/request", "dojo/domReady!"],
+            function(Map,esriRequest) {
             map = new Map("map", {
                 basemap: "topo",
                 center: [-104.98,39.74], // long, lat
@@ -53,7 +54,8 @@
 
             function getReplica(){
                 var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
-                var layerUrl = "http://services1.arcgis.com/M8KJPUwAXP8jhtnM/arcgis/rest/services/b_cycle_stations/FeatureServer/0/createReplica";
+                var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/createReplica";
+                //var layerUrl = "http://services1.arcgis.com/M8KJPUwAXP8jhtnM/arcgis/rest/services/b_cycle_stations/FeatureServer/0/createReplica";
                 var layersRequest = esriRequest({
                     url: layerUrl,
                     content: {
@@ -70,10 +72,14 @@
                 },{usePost:true});
                 layersRequest.then(
                         function(response) {
-                            console.log("Success: ", response.layers);
+                            handleReplicaSuccess(response);
                         }, function(error) {
                             console.log("Error: ", error.message);
                         });
+            }
+
+            function handleReplicaSuccess(response){
+                  console.log("Success: ", response.layers);
             }
         });
     </script>
