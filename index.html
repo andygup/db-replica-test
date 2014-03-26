@@ -81,6 +81,7 @@
 
             function handleReplicaSuccess(response){
                 replicaLayer0 = response;
+                localStorage.replicaLayer0 = JSON.stringify(response);
                 console.log("Success: ", response.layers);
             }
 
