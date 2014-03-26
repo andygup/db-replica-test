@@ -52,6 +52,8 @@
                  outFields: ["*"]
             });
 
+            featureLayer0.setDefinitionExpression("state = 'Colorado'");
+
             map.addLayer(featureLayer0);
 
             btnGetReplica = document.getElementById("btn-get-tiles");

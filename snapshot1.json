@@ -1,0 +1,1585 @@
+{
+  "objectIdFieldName": "OBJECTID",
+  "globalIdFieldName": "",
+  "geometryType": "esriGeometryPoint",
+  "spatialReference": {
+    "wkid": 102100,
+    "latestWkid": 3857
+  },
+  "fields": [
+    {
+      "name": "OBJECTID",
+      "type": "esriFieldTypeOID",
+      "alias": "OBJECTID",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "id",
+      "type": "esriFieldTypeInteger",
+      "alias": "id",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "brewery_id",
+      "type": "esriFieldTypeInteger",
+      "alias": "brewery_id",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "latitude",
+      "type": "esriFieldTypeDouble",
+      "alias": "latitude",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "longitude",
+      "type": "esriFieldTypeDouble",
+      "alias": "longitude",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "accuracy",
+      "type": "esriFieldTypeString",
+      "alias": "accuracy",
+      "sqlType": "sqlTypeOther",
+      "length": 255,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "name",
+      "type": "esriFieldTypeString",
+      "alias": "name",
+      "sqlType": "sqlTypeOther",
+      "length": 255,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "address1",
+      "type": "esriFieldTypeString",
+      "alias": "address1",
+      "sqlType": "sqlTypeOther",
+      "length": 255,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "address2",
+      "type": "esriFieldTypeString",
+      "alias": "address2",
+      "sqlType": "sqlTypeOther",
+      "length": 255,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "city",
+      "type": "esriFieldTypeString",
+      "alias": "city",
+      "sqlType": "sqlTypeOther",
+      "length": 255,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "state",
+      "type": "esriFieldTypeString",
+      "alias": "state",
+      "sqlType": "sqlTypeOther",
+      "length": 255,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "code",
+      "type": "esriFieldTypeInteger",
+      "alias": "code",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "country",
+      "type": "esriFieldTypeString",
+      "alias": "country",
+      "sqlType": "sqlTypeOther",
+      "length": 255,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "phone",
+      "type": "esriFieldTypeString",
+      "alias": "phone",
+      "sqlType": "sqlTypeOther",
+      "length": 255,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "website",
+      "type": "esriFieldTypeString",
+      "alias": "website",
+      "sqlType": "sqlTypeOther",
+      "length": 255,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "descript",
+      "type": "esriFieldTypeString",
+      "alias": "descript",
+      "sqlType": "sqlTypeOther",
+      "length": 255,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "GlobalID",
+      "type": "esriFieldTypeGlobalID",
+      "alias": "GlobalID",
+      "sqlType": "sqlTypeOther",
+      "length": 38,
+      "domain": null,
+      "defaultValue": null
+    }
+  ],
+  "features": [
+    {
+      "attributes": {
+        "OBJECTID": 33,
+        "id": 34,
+        "brewery_id": 36,
+        "latitude": 38.53499985,
+        "longitude": -105.9919968,
+        "accuracy": "ROOFTOP",
+        "name": "Amicas Pizza, Microbrews and More",
+        "address1": "136 East Second Street",
+        "address2": null,
+        "city": "Salida",
+        "state": "Colorado",
+        "code": 81201,
+        "country": "United States",
+        "phone": "1-719-539-5219",
+        "website": null,
+        "descript": null,
+        "GlobalID": "0f0e8f06-4c33-4db9-87f4-537d498b7ea3"
+      },
+      "geometry": {
+        "x": -11798975.111938,
+        "y": 4655281.4840533
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 53,
+        "id": 55,
+        "brewery_id": 62,
+        "latitude": 40.01660156,
+        "longitude": -105.2190018,
+        "accuracy": "ROOFTOP",
+        "name": "Avery Brewing Company",
+        "address1": "5763 Arapahoe Avenue",
+        "address2": null,
+        "city": "Boulder",
+        "state": "Colorado",
+        "code": 80303,
+        "country": "United States",
+        "phone": "1-877-844-5679",
+        "website": "http:\/\/www.averybrewing.com\/",
+        "descript": "###############################################################################################################################################################################################################################################################",
+        "GlobalID": "31b22741-c425-4dec-a2a8-b96b637ab6b9"
+      },
+      "geometry": {
+        "x": -11712925.702153,
+        "y": 4868355.0663155
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 56,
+        "id": 59,
+        "brewery_id": 64,
+        "latitude": 39.57649994,
+        "longitude": -106.0940018,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Backcountry Brewery",
+        "address1": "720 Main Street",
+        "address2": null,
+        "city": "Frisco",
+        "state": "Colorado",
+        "code": 80443,
+        "country": "United States",
+        "phone": "1-970-668-2337",
+        "website": null,
+        "descript": null,
+        "GlobalID": "b1cbb32b-a5b3-48e7-91f5-b4d29665ff62"
+      },
+      "geometry": {
+        "x": -11810330.256597,
+        "y": 4804589.9103029
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 126,
+        "id": 129,
+        "brewery_id": 138,
+        "latitude": 38.83390045,
+        "longitude": -104.8209991,
+        "accuracy": "APPROXIMATE",
+        "name": "Blicks Brewing",
+        "address1": null,
+        "address2": null,
+        "city": "Colorado Springs",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "d51f5156-be10-42b7-8f28-bca9dad026e9"
+      },
+      "geometry": {
+        "x": -11668620.244254,
+        "y": 4697907.0872375
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 147,
+        "id": 150,
+        "brewery_id": 160,
+        "latitude": 40.02669907,
+        "longitude": -105.2480011,
+        "accuracy": "ROOFTOP",
+        "name": "Boulder Beer Company",
+        "address1": "2880 Wilderness Place",
+        "address2": null,
+        "city": "Boulder",
+        "state": "Colorado",
+        "code": 80301,
+        "country": "United States",
+        "phone": "1-303-444-8448",
+        "website": "http:\/\/boulderbeer.com\/",
+        "descript": null,
+        "GlobalID": "e89343ba-59bf-4640-ae2c-01bfe0ce9915"
+      },
+      "geometry": {
+        "x": -11716153.889462,
+        "y": 4869822.8744575
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 218,
+        "id": 222,
+        "brewery_id": 236,
+        "latitude": 39.72359848,
+        "longitude": -105.0009995,
+        "accuracy": "ROOFTOP",
+        "name": "Breckenridge Brewery",
+        "address1": "471 Kalamath Street",
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": 80204,
+        "country": "United States",
+        "phone": "303-623-2739",
+        "website": "http:\/\/www.breckbrew.com\/",
+        "descript": null,
+        "GlobalID": "a8364278-f620-4c3e-a582-3be4752cc96d"
+      },
+      "geometry": {
+        "x": -11688657.797125,
+        "y": 4825857.2842574
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 236,
+        "id": 241,
+        "brewery_id": 257,
+        "latitude": 38.80970001,
+        "longitude": -104.8259964,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Bristol Brewing",
+        "address1": "1647 South Tejon Street",
+        "address2": null,
+        "city": "Colorado Springs",
+        "state": "Colorado",
+        "code": 80906,
+        "country": "United States",
+        "phone": "1-719-633-2555",
+        "website": null,
+        "descript": null,
+        "GlobalID": "63407157-0265-40c1-90bc-0daa3ea270b3"
+      },
+      "geometry": {
+        "x": -11669176.541146,
+        "y": 4694449.2737975
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 289,
+        "id": 294,
+        "brewery_id": 317,
+        "latitude": 39.70500183,
+        "longitude": -104.935997,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Bull & Bush Pub & Brewery",
+        "address1": "4700 Cherry Creek Drive South",
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": 80246,
+        "country": "United States",
+        "phone": "1-303-759-0333",
+        "website": null,
+        "descript": null,
+        "GlobalID": "fcb28d96-d3bc-40a2-89e2-facc27f257da"
+      },
+      "geometry": {
+        "x": -11681421.751924,
+        "y": 4823166.0963976
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 321,
+        "id": 327,
+        "brewery_id": 351,
+        "latitude": 37.27479935,
+        "longitude": -107.8799973,
+        "accuracy": "ROOFTOP",
+        "name": "Carver Brewing Co.",
+        "address1": "1022 Main Ave.",
+        "address2": null,
+        "city": "Durango",
+        "state": "Colorado",
+        "code": 81301,
+        "country": "United States",
+        "phone": "(970) 259 - 2545",
+        "website": "http:\/\/www.carverbrewing.com\/_\/home.htm",
+        "descript": "###############################################################################################################################################################################################################################################################",
+        "GlobalID": "04e2d4ff-de44-468c-a634-5af6523d11ca"
+      },
+      "geometry": {
+        "x": -12009146.366216,
+        "y": 4477479.8050169
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 341,
+        "id": 348,
+        "brewery_id": 376,
+        "latitude": 39.8022995,
+        "longitude": -105.0839996,
+        "accuracy": "ROOFTOP",
+        "name": "Cheshire Cat Brewery",
+        "address1": "7803 Ralston Road",
+        "address2": null,
+        "city": "Arvada",
+        "state": "Colorado",
+        "code": 80002,
+        "country": "United States",
+        "phone": "1-303-431-9000",
+        "website": null,
+        "descript": null,
+        "GlobalID": "00f620e4-934f-4d06-875c-669ff2952565"
+      },
+      "geometry": {
+        "x": -11697897.325993,
+        "y": 4837254.4351787
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 363,
+        "id": 370,
+        "brewery_id": 399,
+        "latitude": 39.75989914,
+        "longitude": -105.2190018,
+        "accuracy": "ROOFTOP",
+        "name": "Coors Brewing - Golden Brewery",
+        "address1": "311 Tenth Street",
+        "address2": null,
+        "city": "Golden",
+        "state": "Colorado",
+        "code": 80401,
+        "country": "United States",
+        "phone": "1-866-812-2337",
+        "website": "http:\/\/www.coors.com",
+        "descript": "###############################################################################################################################################################################################################################################################",
+        "GlobalID": "0ec839b5-89e5-4ca1-b4b0-b0b0ff77d315"
+      },
+      "geometry": {
+        "x": -11712925.702153,
+        "y": 4831112.5748554
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 374,
+        "id": 381,
+        "brewery_id": 410,
+        "latitude": 40.43130112,
+        "longitude": -104.6880035,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Crabtree Brewery",
+        "address1": "625 3rd St. #D",
+        "address2": null,
+        "city": "Greeley",
+        "state": "Colorado",
+        "code": 80631,
+        "country": "United States",
+        "phone": "[970] 356-0516",
+        "website": "http:\/\/www.crabtreebrewing.com",
+        "descript": "###############################################################################################################################################################################################################################################################",
+        "GlobalID": "1069a9c5-697f-400a-9471-2193df5d7da0"
+      },
+      "geometry": {
+        "x": -11653815.241784,
+        "y": 4928817.1595999
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 378,
+        "id": 385,
+        "brewery_id": 414,
+        "latitude": 38.86980057,
+        "longitude": -106.9869995,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Crested Butte Brewery & Pub",
+        "address1": "226 Elk Avenue",
+        "address2": null,
+        "city": "Crested Butte",
+        "state": "Colorado",
+        "code": 81224,
+        "country": "United States",
+        "phone": "1-970-349-5026",
+        "website": null,
+        "descript": null,
+        "GlobalID": "bff8a2db-fd96-4e3c-9572-06868a58fa7a"
+      },
+      "geometry": {
+        "x": -11909738.30584,
+        "y": 4703038.7438037
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 403,
+        "id": 411,
+        "brewery_id": 440,
+        "latitude": 39.75529861,
+        "longitude": -104.9970016,
+        "accuracy": "ROOFTOP",
+        "name": "Denver ChopHouse and Brewery",
+        "address1": "1735 19th Street #100",
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": 80202,
+        "country": "United States",
+        "phone": "1-303-296-0800",
+        "website": null,
+        "descript": null,
+        "GlobalID": "05e8d8d1-0f20-4348-860d-8a7261846355"
+      },
+      "geometry": {
+        "x": -11688212.752933,
+        "y": 4830446.397319
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 413,
+        "id": 421,
+        "brewery_id": 450,
+        "latitude": 39.62820053,
+        "longitude": -106.0589981,
+        "accuracy": "GEOMETRIC_CENTER",
+        "name": "Dillon Dam Brewery",
+        "address1": "100 Little Dam Road",
+        "address2": null,
+        "city": "Dillon",
+        "state": "Colorado",
+        "code": 80435,
+        "country": "United States",
+        "phone": "1-970-262-7777",
+        "website": null,
+        "descript": null,
+        "GlobalID": "ec608301-5274-4b7b-abf9-88d5aff07757"
+      },
+      "geometry": {
+        "x": -11806433.662537,
+        "y": 4812059.579619
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 417,
+        "id": 425,
+        "brewery_id": 455,
+        "latitude": 39.7541008,
+        "longitude": -105,
+        "accuracy": "APPROXIMATE",
+        "name": "Dixon's Downtown Grill",
+        "address1": null,
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": 80202,
+        "country": "United States",
+        "phone": "1-303-573-6100",
+        "website": null,
+        "descript": "(No longer brewing)",
+        "GlobalID": "b3377872-84f4-4945-9e32-c30e8ef2d227"
+      },
+      "geometry": {
+        "x": -11688546.533294,
+        "y": 4830272.9563184
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 422,
+        "id": 430,
+        "brewery_id": 461,
+        "latitude": 39.80189896,
+        "longitude": -105.5139999,
+        "accuracy": "APPROXIMATE",
+        "name": "Dostal Alley",
+        "address1": "1 Dostal Alley",
+        "address2": null,
+        "city": "Central City",
+        "state": "Colorado",
+        "code": 80427,
+        "country": "United States",
+        "phone": "1-303-582-1610",
+        "website": null,
+        "descript": null,
+        "GlobalID": "61e9d2fb-809c-45c1-8a46-1c707d5645eb"
+      },
+      "geometry": {
+        "x": -11745764.74043,
+        "y": 4837196.3976591
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 466,
+        "id": 474,
+        "brewery_id": 509,
+        "latitude": 40.37070084,
+        "longitude": -105.526001,
+        "accuracy": "ROOFTOP",
+        "name": "Estes Park Brewery",
+        "address1": "470 Prospect Village Dr.",
+        "address2": null,
+        "city": "Estes Park",
+        "state": "Colorado",
+        "code": 80517,
+        "country": "United States",
+        "phone": "970-586.5421",
+        "website": "http:\/\/www.epbrewery.net\/",
+        "descript": "###############################################################################################################################################################################################################################################################",
+        "GlobalID": "e5f772d9-e08d-4608-9119-94d621fd58dd"
+      },
+      "geometry": {
+        "x": -11747100.69677,
+        "y": 4919958.6513412
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 495,
+        "id": 505,
+        "brewery_id": 540,
+        "latitude": 39.7582016,
+        "longitude": -104.9899979,
+        "accuracy": "ROOFTOP",
+        "name": "Flying Dog Brewery",
+        "address1": "2401 Blake St.",
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": 80205,
+        "country": "United States",
+        "phone": "303-292-5027",
+        "website": "http:\/\/www.flyingdogales.com\/",
+        "descript": null,
+        "GlobalID": "4bbd1b98-8b1e-488d-b3af-f12546e6bba2"
+      },
+      "geometry": {
+        "x": -11687433.104615,
+        "y": 4830866.7582107
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 500,
+        "id": 510,
+        "brewery_id": 545,
+        "latitude": 40.58319855,
+        "longitude": -105.0419998,
+        "accuracy": "ROOFTOP",
+        "name": "Fort Collins Brewery",
+        "address1": "1900-B East Lincoln Avenue",
+        "address2": null,
+        "city": "Fort Collins",
+        "state": "Colorado",
+        "code": 80524,
+        "country": "United States",
+        "phone": "1-970-472-1499",
+        "website": "http:\/\/www.fortcollinsbrewery.com",
+        "descript": null,
+        "GlobalID": "c593df85-0641-4c32-aab5-1176f482f80f"
+      },
+      "geometry": {
+        "x": -11693221.929643,
+        "y": 4951056.5753956
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 529,
+        "id": 539,
+        "brewery_id": 577,
+        "latitude": 39.54759979,
+        "longitude": -107.322998,
+        "accuracy": "ROOFTOP",
+        "name": "Glenwood Canyon Brewing Company",
+        "address1": "402 Seventh Street",
+        "address2": null,
+        "city": "Glenwood Springs",
+        "state": "Colorado",
+        "code": 81601,
+        "country": "United States",
+        "phone": "1-970-945-1276",
+        "website": null,
+        "descript": null,
+        "GlobalID": "7014a068-95f0-4aed-9fe3-bd65c710c036"
+      },
+      "geometry": {
+        "x": -11947141.487768,
+        "y": 4800416.8620995
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 532,
+        "id": 542,
+        "brewery_id": 580,
+        "latitude": 39.75460052,
+        "longitude": -105.223999,
+        "accuracy": "ROOFTOP",
+        "name": "Golden City Brewery",
+        "address1": "920 Twelfth Street",
+        "address2": null,
+        "city": "Golden",
+        "state": "Colorado",
+        "code": 80401,
+        "country": "United States",
+        "phone": "1-303-279-8092",
+        "website": null,
+        "descript": null,
+        "GlobalID": "65834eb7-31dc-45cd-a4e8-1bdb6e7bcb0a"
+      },
+      "geometry": {
+        "x": -11713481.987912,
+        "y": 4830345.3146203
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 541,
+        "id": 551,
+        "brewery_id": 589,
+        "latitude": 39.64410019,
+        "longitude": -106.5960007,
+        "accuracy": "ROOFTOP",
+        "name": "Gore Range Brewery",
+        "address1": "105 Edwards Village Boulevard",
+        "address2": null,
+        "city": "Edwards",
+        "state": "Colorado",
+        "code": 81632,
+        "country": "United States",
+        "phone": "1-970-926-2739",
+        "website": null,
+        "descript": null,
+        "GlobalID": "a38d5f63-6c44-4796-b090-83d9b1c2357a"
+      },
+      "geometry": {
+        "x": -11866212.518523,
+        "y": 4814357.8746339
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 544,
+        "id": 554,
+        "brewery_id": 592,
+        "latitude": 40.25180054,
+        "longitude": -105.8199997,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Grand Lake Brewing",
+        "address1": "915 Grand Avenue",
+        "address2": null,
+        "city": "Grand Lake",
+        "state": "Colorado",
+        "code": 80447,
+        "country": "United States",
+        "phone": "1-970-627-1711",
+        "website": null,
+        "descript": null,
+        "GlobalID": "c23a180f-7684-469b-b599-109cf1240b4a"
+      },
+      "geometry": {
+        "x": -11779828.482348,
+        "y": 4902600.9994136
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 556,
+        "id": 566,
+        "brewery_id": 604,
+        "latitude": 39.75389862,
+        "longitude": -104.9889984,
+        "accuracy": "ROOFTOP",
+        "name": "Great Divide Brewing",
+        "address1": "2201 Arapahoe Street",
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": 80205,
+        "country": "United States",
+        "phone": "1-303-296-9460",
+        "website": "http:\/\/www.greatdivide.com\/",
+        "descript": "###############################################################################################################################################################################################################################################################",
+        "GlobalID": "f7fa4362-7bd1-4573-9363-cac547301e06"
+      },
+      "geometry": {
+        "x": -11687321.840784,
+        "y": 4830243.6812704
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 558,
+        "id": 568,
+        "brewery_id": 606,
+        "latitude": 39.60419846,
+        "longitude": -105.947998,
+        "accuracy": "APPROXIMATE",
+        "name": "Great Northern Tavern and Brewery",
+        "address1": null,
+        "address2": null,
+        "city": "Keystone",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "21e9d9c8-20ab-4ccd-bdf1-e7d9d7c5eded"
+      },
+      "geometry": {
+        "x": -11794077.187927,
+        "y": 4808591.0818516
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 594,
+        "id": 604,
+        "brewery_id": 642,
+        "latitude": 40.58530045,
+        "longitude": -105.0839996,
+        "accuracy": "APPROXIMATE",
+        "name": "HC Berger Brewing",
+        "address1": null,
+        "address2": null,
+        "city": "Fort Collins",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "af8a4319-3b44-45f6-8cd1-5628f6638426"
+      },
+      "geometry": {
+        "x": -11697897.325993,
+        "y": 4951364.6699163
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 596,
+        "id": 606,
+        "brewery_id": 644,
+        "latitude": 39.73920059,
+        "longitude": -104.9850006,
+        "accuracy": "APPROXIMATE",
+        "name": "Heavenly Daze Brewery and Grill",
+        "address1": null,
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "2864d498-a107-472a-862b-dbd528ebcc83"
+      },
+      "geometry": {
+        "x": -11686876.807724,
+        "y": 4828115.6814443
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 622,
+        "id": 633,
+        "brewery_id": 675,
+        "latitude": 39.71870041,
+        "longitude": -104.9499969,
+        "accuracy": "ROOFTOP",
+        "name": "Hops Grillhouse & Brewery - Cherry Creek",
+        "address1": "149 Steele Street",
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": 80206,
+        "country": "United States",
+        "phone": "1-303-377-0909",
+        "website": null,
+        "descript": null,
+        "GlobalID": "b0cc6611-0c24-4f46-9a80-9bac9b06bfb8"
+      },
+      "geometry": {
+        "x": -11682980.213664,
+        "y": 4825148.3966079
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 629,
+        "id": 640,
+        "brewery_id": 682,
+        "latitude": 39.64030075,
+        "longitude": -106.3740005,
+        "accuracy": "APPROXIMATE",
+        "name": "Hubcap Brewery and Kitchen",
+        "address1": null,
+        "address2": null,
+        "city": "Vail",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "9825b0d1-62e7-4cc8-9785-b376818534d4"
+      },
+      "geometry": {
+        "x": -11841499.569303,
+        "y": 4813808.6177409
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 656,
+        "id": 668,
+        "brewery_id": 711,
+        "latitude": 39.37220001,
+        "longitude": -104.8560028,
+        "accuracy": "APPROXIMATE",
+        "name": "Jarre Creek Ranch Brewing",
+        "address1": null,
+        "address2": null,
+        "city": "Castle Rock",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "c8575a99-cd69-4e81-abd3-f5efd11ef82f"
+      },
+      "geometry": {
+        "x": -11672516.838314,
+        "y": 4775127.1306305
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 718,
+        "id": 731,
+        "brewery_id": 779,
+        "latitude": 40.15869904,
+        "longitude": -105.112999,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Left Hand Brewing Company",
+        "address1": "1265 Boston Avenue",
+        "address2": null,
+        "city": "Longmont",
+        "state": "Colorado",
+        "code": 80501,
+        "country": "United States",
+        "phone": "1-303-772-0258",
+        "website": "http:\/\/www.lefthandbrewing.com\/",
+        "descript": null,
+        "GlobalID": "baa3d1e1-3e89-4d65-8ea3-b98501c815bb"
+      },
+      "geometry": {
+        "x": -11701125.524434,
+        "y": 4889030.8621715
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 799,
+        "id": 812,
+        "brewery_id": 862,
+        "latitude": 39.61199951,
+        "longitude": -105.0189972,
+        "accuracy": "ROOFTOP",
+        "name": "Mill Steakhouse",
+        "address1": "5798 South Rapp Street",
+        "address2": null,
+        "city": "Littleton",
+        "state": "Colorado",
+        "code": 80120,
+        "country": "United States",
+        "phone": "1-303-798-5280",
+        "website": null,
+        "descript": null,
+        "GlobalID": "a0cc6d51-3a30-4810-9038-473bdb90803d"
+      },
+      "geometry": {
+        "x": -11690661.291924,
+        "y": 4809718.2662239
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 828,
+        "id": 841,
+        "brewery_id": 891,
+        "latitude": 40.01900101,
+        "longitude": -105.2750015,
+        "accuracy": "ROOFTOP",
+        "name": "Mountain Sun Pub & Brewery",
+        "address1": "1535 Pearl Street",
+        "address2": null,
+        "city": "Boulder",
+        "state": "Colorado",
+        "code": 80302,
+        "country": "United States",
+        "phone": "1-303-546-0886",
+        "website": null,
+        "descript": null,
+        "GlobalID": "bf875ad2-d068-462f-81ce-b00f911a4ae9"
+      },
+      "geometry": {
+        "x": -11719159.560241,
+        "y": 4868703.8387925
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 835,
+        "id": 848,
+        "brewery_id": 899,
+        "latitude": 40.39780045,
+        "longitude": -105.0749969,
+        "accuracy": "APPROXIMATE",
+        "name": "Namaqua Brewing",
+        "address1": null,
+        "address2": null,
+        "city": "Loveland",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "ad059d95-9921-4362-b6d9-087c540e1af5"
+      },
+      "geometry": {
+        "x": -11696895.150013,
+        "y": 4923919.068532
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 841,
+        "id": 854,
+        "brewery_id": 905,
+        "latitude": 40.59289932,
+        "longitude": -105.0699997,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "New Belgium Brewing",
+        "address1": "500 Linden Street",
+        "address2": null,
+        "city": "Fort Collins",
+        "state": "Colorado",
+        "code": 80524,
+        "country": "United States",
+        "phone": "1-888-622-4044",
+        "website": "http:\/\/www.newbelgium.com\/",
+        "descript": "###############################################################################################################################################################################################################################################################",
+        "GlobalID": "15b23fd4-5c15-470e-a19b-0ce626701cb4"
+      },
+      "geometry": {
+        "x": -11696338.864253,
+        "y": 4952478.5859028
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 864,
+        "id": 877,
+        "brewery_id": 932,
+        "latitude": 40.01499939,
+        "longitude": -105.2710037,
+        "accuracy": "APPROXIMATE",
+        "name": "Oasis Brewery and Restaurant",
+        "address1": null,
+        "address2": null,
+        "city": "Boulder",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "93c6e218-7e50-443a-9cae-badd8f4b0b62"
+      },
+      "geometry": {
+        "x": -11718714.527181,
+        "y": 4868122.1894412
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 865,
+        "id": 878,
+        "brewery_id": 933,
+        "latitude": 40.01499939,
+        "longitude": -105.2710037,
+        "accuracy": "APPROXIMATE",
+        "name": "Oasis Brewery Annex",
+        "address1": null,
+        "address2": null,
+        "city": "Boulder",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "6238a374-5a33-4bc0-8f10-d2c78381b5b1"
+      },
+      "geometry": {
+        "x": -11718714.527181,
+        "y": 4868122.1894412
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 867,
+        "id": 880,
+        "brewery_id": 935,
+        "latitude": 40.58940125,
+        "longitude": -105.0630035,
+        "accuracy": "ROOFTOP",
+        "name": "Odell Brewing",
+        "address1": "800 East Lincoln Avenue",
+        "address2": null,
+        "city": "Fort Collins",
+        "state": "Colorado",
+        "code": 80524,
+        "country": "United States",
+        "phone": "1-888-887-2797",
+        "website": null,
+        "descript": null,
+        "GlobalID": "3a07a51f-e5a3-4129-bd67-ad70a449f969"
+      },
+      "geometry": {
+        "x": -11695560.050832,
+        "y": 4951965.7891887
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 887,
+        "id": 900,
+        "brewery_id": 956,
+        "latitude": 40.22460175,
+        "longitude": -105.2679977,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Oskar Blues Grill and Brew",
+        "address1": "303 Main Street",
+        "address2": null,
+        "city": "Lyons",
+        "state": "Colorado",
+        "code": 80540,
+        "country": "United States",
+        "phone": "1-303-823-6685",
+        "website": "http:\/\/www.oskarblues.com\/",
+        "descript": null,
+        "GlobalID": "716f8d95-2aec-47cb-950d-6aa2da585b16"
+      },
+      "geometry": {
+        "x": -11718379.900791,
+        "y": 4898634.6746507
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 918,
+        "id": 931,
+        "brewery_id": 987,
+        "latitude": 39.73690033,
+        "longitude": -104.9909973,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Pint's Pub Brewery and Freehouse",
+        "address1": "211 West 13th Avenue",
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": 80204,
+        "country": "United States",
+        "phone": "1-303-534-7543",
+        "website": null,
+        "descript": null,
+        "GlobalID": "e32df480-52a8-4afe-bdf3-855adab794e4"
+      },
+      "geometry": {
+        "x": -11687544.357314,
+        "y": 4827782.6878966
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 951,
+        "id": 964,
+        "brewery_id": 1025,
+        "latitude": 39.62820053,
+        "longitude": -106.0469971,
+        "accuracy": "ROOFTOP",
+        "name": "Pug Ryan's Steakhouse and Brewery",
+        "address1": "104 Village Place",
+        "address2": null,
+        "city": "Dillon",
+        "state": "Colorado",
+        "code": 80435,
+        "country": "United States",
+        "phone": "1-970-468-2145",
+        "website": null,
+        "descript": null,
+        "GlobalID": "2e176b1f-6672-4803-8922-54e2087742c8"
+      },
+      "geometry": {
+        "x": -11805097.717328,
+        "y": 4812059.579619
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 953,
+        "id": 966,
+        "brewery_id": 1027,
+        "latitude": 40.16880035,
+        "longitude": -105.1019974,
+        "accuracy": "ROOFTOP",
+        "name": "Pumphouse Brewery & Restaurant",
+        "address1": "540 Main Street",
+        "address2": null,
+        "city": "Longmont",
+        "state": "Colorado",
+        "code": 80501,
+        "country": "United States",
+        "phone": "1-303-702-0881",
+        "website": null,
+        "descript": null,
+        "GlobalID": "8262ac93-6184-49d1-9f13-315f765d385a"
+      },
+      "geometry": {
+        "x": -11699900.831924,
+        "y": 4890502.2916895
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 976,
+        "id": 989,
+        "brewery_id": 1050,
+        "latitude": 40.01869965,
+        "longitude": -105.2789993,
+        "accuracy": "ROOFTOP",
+        "name": "RedFish New Orleans Brewhouse",
+        "address1": "2027 13th Street",
+        "address2": null,
+        "city": "Boulder",
+        "state": "Colorado",
+        "code": 80302,
+        "country": "United States",
+        "phone": "1-303-440-5858",
+        "website": null,
+        "descript": null,
+        "GlobalID": "52e11e68-2295-4330-8fe3-983cd37ee9c8"
+      },
+      "geometry": {
+        "x": -11719604.593301,
+        "y": 4868660.0338832
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 990,
+        "id": 1003,
+        "brewery_id": 1064,
+        "latitude": 39.74720001,
+        "longitude": -104.9950027,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Rock Bottom Restaurant & Brewery - Denver",
+        "address1": "1001 16th Street #A-100",
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": 80202,
+        "country": "United States",
+        "phone": "1-303-534-7616",
+        "website": null,
+        "descript": null,
+        "GlobalID": "08f0812e-7a36-484f-b429-4ad0092a3dde"
+      },
+      "geometry": {
+        "x": -11687990.236402,
+        "y": 4829273.7915349
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 994,
+        "id": 1007,
+        "brewery_id": 1068,
+        "latitude": 39.56779861,
+        "longitude": -104.8740005,
+        "accuracy": "ROOFTOP",
+        "name": "Rock Bottom Restaurant & Brewery - South Denver",
+        "address1": "9627 East County Line Road",
+        "address2": null,
+        "city": "Englewood",
+        "state": "Colorado",
+        "code": 80112,
+        "country": "United States",
+        "phone": "1-303-792-9090",
+        "website": null,
+        "descript": null,
+        "GlobalID": "dc41fafb-c338-4acb-a72a-67ce5e3e0765"
+      },
+      "geometry": {
+        "x": -11674520.333114,
+        "y": 4803333.295447
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 996,
+        "id": 1009,
+        "brewery_id": 1070,
+        "latitude": 39.40909958,
+        "longitude": -104.8700027,
+        "accuracy": "ROOFTOP",
+        "name": "Rockyard Brewing",
+        "address1": "880 West Castleton Road",
+        "address2": null,
+        "city": "Castle Rock",
+        "state": "Colorado",
+        "code": 80109,
+        "country": "United States",
+        "phone": "1-303-814-9273",
+        "website": null,
+        "descript": null,
+        "GlobalID": "b6feffe7-aaec-4ef8-9b71-e3b156012fb0"
+      },
+      "geometry": {
+        "x": -11674075.300053,
+        "y": 4780442.146259
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 1030,
+        "id": 1043,
+        "brewery_id": 1104,
+        "latitude": 39.75569916,
+        "longitude": -104.9929962,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "SandLot Brewery at Coors Field",
+        "address1": "2145 Blake Street",
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": 80205,
+        "country": "United States",
+        "phone": "1-303-298-1587",
+        "website": null,
+        "descript": null,
+        "GlobalID": "9b39703f-56b6-4b95-a7b0-2b84c3b74c2c"
+      },
+      "geometry": {
+        "x": -11687766.873844,
+        "y": 4830504.3970009
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 1117,
+        "id": 1131,
+        "brewery_id": 1196,
+        "latitude": 37.2723999,
+        "longitude": -107.8799973,
+        "accuracy": "ROOFTOP",
+        "name": "Steamworks Brewing - Durango",
+        "address1": "801 East Second Avenue",
+        "address2": null,
+        "city": "Durango",
+        "state": "Colorado",
+        "code": 81301,
+        "country": "United States",
+        "phone": "1-970-259-9200",
+        "website": null,
+        "descript": null,
+        "GlobalID": "11b3192e-28c2-4e91-a418-bd6f888a8c54"
+      },
+      "geometry": {
+        "x": -12009146.366216,
+        "y": 4477144.1409605
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 1149,
+        "id": 1163,
+        "brewery_id": 1230,
+        "latitude": 40.16719818,
+        "longitude": -105.1019974,
+        "accuracy": "APPROXIMATE",
+        "name": "Tabernash Brewing",
+        "address1": null,
+        "address2": null,
+        "city": "Longmont",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "74f8c338-99ea-4ac7-a3a5-b151dac784a6"
+      },
+      "geometry": {
+        "x": -11699900.831924,
+        "y": 4890268.8934658
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 1187,
+        "id": 1201,
+        "brewery_id": 1269,
+        "latitude": 39.73920059,
+        "longitude": -104.9850006,
+        "accuracy": "APPROXIMATE",
+        "name": "Tivoli Brewing",
+        "address1": null,
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "8d1976ed-d0b8-4a31-9f72-f692855f8e1c"
+      },
+      "geometry": {
+        "x": -11686876.807724,
+        "y": 4828115.6814443
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 1189,
+        "id": 1203,
+        "brewery_id": 1271,
+        "latitude": 39.7417984,
+        "longitude": -105.5179977,
+        "accuracy": "ROOFTOP",
+        "name": "Tommyknocker Brewery and Pub",
+        "address1": "1401 Miner Street",
+        "address2": null,
+        "city": "Idaho Springs",
+        "state": "Colorado",
+        "code": 80452,
+        "country": "United States",
+        "phone": "1-303-567-2688",
+        "website": "http:\/\/www.tommyknocker.com\/",
+        "descript": null,
+        "GlobalID": "1ceb5d93-4511-4251-aaa7-8fe043ff145d"
+      },
+      "geometry": {
+        "x": -11746209.77349,
+        "y": 4828491.7627174
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 1200,
+        "id": 1214,
+        "brewery_id": 1282,
+        "latitude": 38.89670181,
+        "longitude": -104.8550034,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Trinity Brewing Company",
+        "address1": "1446 Garden of the Gods",
+        "address2": null,
+        "city": "Colorado Springs",
+        "state": "Colorado",
+        "code": 80907,
+        "country": "United States",
+        "phone": "719-634-0029",
+        "website": "http:\/\/trinitybrew.com\/",
+        "descript": null,
+        "GlobalID": "580124cd-5558-4c55-83e4-be14cae7660d"
+      },
+      "geometry": {
+        "x": -11672405.585615,
+        "y": 4706885.7758603
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 1214,
+        "id": 1228,
+        "brewery_id": 1297,
+        "latitude": 40.02009964,
+        "longitude": -105.2509995,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Twisted Pine Brewing Company",
+        "address1": "3201 Walnut Street Ste A",
+        "address2": null,
+        "city": "Boulder",
+        "state": "Colorado",
+        "code": 80301,
+        "country": "United States",
+        "phone": "303.786.9270",
+        "website": "http:\/\/www.twistedpinebrewing.com\/",
+        "descript": "###############################################################################################################################################################################################################################################################",
+        "GlobalID": "e53c2745-fbb0-4db9-a0bb-51a4f81d9b7d"
+      },
+      "geometry": {
+        "x": -11716487.669823,
+        "y": 4868863.5344427
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 1225,
+        "id": 1240,
+        "brewery_id": 1310,
+        "latitude": 40.4233017,
+        "longitude": -104.7089996,
+        "accuracy": "APPROXIMATE",
+        "name": "Union Colony Brewery",
+        "address1": null,
+        "address2": null,
+        "city": "Greeley",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": null,
+        "GlobalID": "a52b88ef-8b64-4777-912a-bd142a6de47b"
+      },
+      "geometry": {
+        "x": -11656152.516945,
+        "y": 4927647.352743
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 1281,
+        "id": 1298,
+        "brewery_id": 1372,
+        "latitude": 39.9618988,
+        "longitude": -105.5100021,
+        "accuracy": "RANGE_INTERPOLATED",
+        "name": "Wolf Tongue Brewery",
+        "address1": "35 E. First St.",
+        "address2": null,
+        "city": "Nederland",
+        "state": "Colorado",
+        "code": null,
+        "country": "United States",
+        "phone": null,
+        "website": null,
+        "descript": "Closed.",
+        "GlobalID": "b299fa6c-9dfe-40f6-af38-660640712a44"
+      },
+      "geometry": {
+        "x": -11745319.707369,
+        "y": 4860407.0607134
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 1287,
+        "id": 1304,
+        "brewery_id": 1379,
+        "latitude": 39.75350189,
+        "longitude": -104.9980011,
+        "accuracy": "ROOFTOP",
+        "name": "Wynkoop Brewing",
+        "address1": "1634 18th Street",
+        "address2": null,
+        "city": "Denver",
+        "state": "Colorado",
+        "code": 80202,
+        "country": "United States",
+        "phone": "1-303-297-2700",
+        "website": "http:\/\/www.wynkoop.com\/",
+        "descript": null,
+        "GlobalID": "9beddcb0-f3a0-484e-a626-2e0d896f5c07"
+      },
+      "geometry": {
+        "x": -11688324.016764,
+        "y": 4830186.2362251
+      }
+    }
+  ]
+}
