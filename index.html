@@ -34,17 +34,25 @@
     <script>
         var map;
         var replicaLayer0;
+        var featureLayer0;
         var layersRequest;
         var btnGetReplica;
 
-        require(["esri/map","esri/request", "dojo/domReady!"],
-            function(Map,esriRequest) {
+        require(["esri/map","esri/request","esri/layers/FeatureLayer", "dojo/domReady!"],
+            function(Map,esriRequest,FeatureLayer) {
             map = new Map("map", {
                 basemap: "topo",
                 center: [-104.98,39.74], // long, lat
                 zoom: 13,
                 sliderStyle: "small"
             });
+
+            featureLayer0 = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/0",{
+                 mode: FeatureLayer.MODE_SNAPSHOT,
+                 outFields: ["*"]
+            });
+
+            map.addLayer(featureLayer0);
 
             btnGetReplica = document.getElementById("btn-get-tiles");
 
