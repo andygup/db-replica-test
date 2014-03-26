@@ -24,11 +24,10 @@
             width: 100%;
             height: 40px;
         }
-        /*#btn-get-tiles{*/
-            /*position: relative; float: right;*/
-            /*padding: 5px;*/
-            /*border-radius: 3px;*/
-        /*}*/
+        .right-btn{
+            position: relative; float: right;
+            padding: 5px;
+        }
     </style>
     <script>var dojoConfig = {
         packages: [{
@@ -44,6 +43,7 @@
         var featureLayer0;
         var layersRequest;
         var btnGetReplica;
+        var btnUndo,btnRedo;
         var btnGetLayer;
         var undoManager;
         var featureLayer0json;
@@ -210,17 +210,16 @@
             "esri/map","esri/request",
             "esri/layers/FeatureLayer",
             "esri/undoManager",
+            "dojo/_base/connect",
             "modules/customoperation",
             "dojo/domReady!"],
-            function(Map,esriRequest,FeatureLayer,UndoManager,CustomOperation) {
+            function(Map,esriRequest,FeatureLayer,UndoManager,connect,CustomOperation) {
                 map = new Map("map", {
                     basemap: "topo",
                     center: [-104.98,39.74], // long, lat
                     zoom: 13,
                     sliderStyle: "small"
                 });
-
-                undoManager = new UndoManager();
 
                 featureLayer0 = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/0",{
                      mode: FeatureLayer.MODE_SNAPSHOT,
@@ -235,17 +234,51 @@
                     console.log("map loaded");
                 });
 
-                btnGetReplica = document.getElementById("btn-get-tiles");
+                setupUndoManager();
+                setupListeners();
 
-                btnGetLayer = document.getElementById("btn-get-layer");
+                function setupListeners(){
+                    btnGetReplica = document.getElementById("btn-get-tiles");
+                    btnGetLayer = document.getElementById("btn-get-layer");
 
-                btnGetReplica.onclick = function(evt){
-                    getReplica();
-                }.bind(this)
+                    btnGetReplica.onclick = function(evt){
+                        getReplica();
+                    }.bind(this)
 
-                btnGetLayer.onclick = function(evt){
-                    loadReplica();
-                }.bind(this)
+                    btnGetLayer.onclick = function(evt){
+                        loadReplica();
+                    }.bind(this)
+                }
+
+                function setupUndoManager(){
+                    undoManager = new UndoManager();
+
+                    btnRedo = document.getElementById("redo");
+                    btnUndo = document.getElementById("undo");
+
+                    btnRedo.onclick = function(evt){
+                        getReplica();
+                    }.bind(this)
+
+                    btnUndo.onclick = function(evt){
+                        loadReplica();
+                    }.bind(this)
+
+                    connect.connect(undoManager,"onChange",function(){
+                        //enable or disable buttons depending on current state of application
+                        if (undoManager.canUndo) {
+                            btnUndo.disabled = false;
+                        } else {
+                            btnUndo.disabled = true;
+                        }
+
+                        if (undoManager.canRedo) {
+                            btnRedo.disabled = false;
+                        } else {
+                            btnRedo.disabled = true;
+                        }
+                    });
+                }
 
                 function getReplica(){
                     var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
@@ -313,6 +346,13 @@
 <div id="button-div1">
     <button id="btn-get-tiles">1. Get Replica</button>
     <button id="btn-get-layer">2. Add Replica to map</button>
+    <button class="right-btn" id="undo">
+        Undo
+    </button>
+    <button class="right-btn" id="redo">
+        Redo
+    </button>
+
 </div>
 <div id="map"></div>
 </body>
