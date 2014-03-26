@@ -56,6 +56,10 @@
 
             map.addLayer(featureLayer0);
 
+            featureLayer0.on("load",function(evt){
+                console.log("map loaded");
+            });
+
             btnGetReplica = document.getElementById("btn-get-tiles");
 
             btnGetReplica.onclick = function(evt){
