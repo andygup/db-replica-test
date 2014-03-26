@@ -37,6 +37,166 @@
         var featureLayer0;
         var layersRequest;
         var btnGetReplica;
+        var btnGetLayer;
+        var featureLayer0json;
+        var layerDef = {
+            "objectIdFieldName": "OBJECTID",
+            "globalIdFieldName": "",
+            "geometryType": "esriGeometryPoint",
+            "spatialReference": {
+                "wkid": 102100,
+                "latestWkid": 3857
+            },
+            "fields": [
+                {
+                    "name": "OBJECTID",
+                    "type": "esriFieldTypeOID",
+                    "alias": "OBJECTID",
+                    "sqlType": "sqlTypeOther",
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id",
+                    "type": "esriFieldTypeInteger",
+                    "alias": "id",
+                    "sqlType": "sqlTypeOther",
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "brewery_id",
+                    "type": "esriFieldTypeInteger",
+                    "alias": "brewery_id",
+                    "sqlType": "sqlTypeOther",
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "latitude",
+                    "type": "esriFieldTypeDouble",
+                    "alias": "latitude",
+                    "sqlType": "sqlTypeOther",
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "longitude",
+                    "type": "esriFieldTypeDouble",
+                    "alias": "longitude",
+                    "sqlType": "sqlTypeOther",
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "accuracy",
+                    "type": "esriFieldTypeString",
+                    "alias": "accuracy",
+                    "sqlType": "sqlTypeOther",
+                    "length": 255,
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "name",
+                    "type": "esriFieldTypeString",
+                    "alias": "name",
+                    "sqlType": "sqlTypeOther",
+                    "length": 255,
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "address1",
+                    "type": "esriFieldTypeString",
+                    "alias": "address1",
+                    "sqlType": "sqlTypeOther",
+                    "length": 255,
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "address2",
+                    "type": "esriFieldTypeString",
+                    "alias": "address2",
+                    "sqlType": "sqlTypeOther",
+                    "length": 255,
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "city",
+                    "type": "esriFieldTypeString",
+                    "alias": "city",
+                    "sqlType": "sqlTypeOther",
+                    "length": 255,
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "state",
+                    "type": "esriFieldTypeString",
+                    "alias": "state",
+                    "sqlType": "sqlTypeOther",
+                    "length": 255,
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "code",
+                    "type": "esriFieldTypeInteger",
+                    "alias": "code",
+                    "sqlType": "sqlTypeOther",
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "country",
+                    "type": "esriFieldTypeString",
+                    "alias": "country",
+                    "sqlType": "sqlTypeOther",
+                    "length": 255,
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "phone",
+                    "type": "esriFieldTypeString",
+                    "alias": "phone",
+                    "sqlType": "sqlTypeOther",
+                    "length": 255,
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "website",
+                    "type": "esriFieldTypeString",
+                    "alias": "website",
+                    "sqlType": "sqlTypeOther",
+                    "length": 255,
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "descript",
+                    "type": "esriFieldTypeString",
+                    "alias": "descript",
+                    "sqlType": "sqlTypeOther",
+                    "length": 255,
+                    "domain": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "GlobalID",
+                    "type": "esriFieldTypeGlobalID",
+                    "alias": "GlobalID",
+                    "sqlType": "sqlTypeOther",
+                    "length": 38,
+                    "domain": null,
+                    "defaultValue": null
+                }
+            ]
+        }
 
         require(["esri/map","esri/request","esri/layers/FeatureLayer", "dojo/domReady!"],
             function(Map,esriRequest,FeatureLayer) {
@@ -62,10 +222,15 @@
 
             btnGetReplica = document.getElementById("btn-get-tiles");
 
+            btnGetLayer = document.getElementById("btn-get-layer");
+
             btnGetReplica.onclick = function(evt){
                 getReplica();
             }.bind(this)
 
+            btnGetLayer.onclick = function(evt){
+                loadReplica();
+            }.bind(this)
 
             function getReplica(){
                 var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
@@ -99,6 +264,21 @@
                 console.log("Success: ", response.layers);
             }
 
+            function loadReplica(){
+                var t = JSON.parse(localStorage.replicaLayer0);
+                var featureDefinition = {
+                    "layerDefinition":layerDef,
+                    "featureSet":{
+                        "features": t.layers[0].features,
+                        "geometryType": "esriGeometryPoint"
+                    }
+
+                }
+
+                featureLayer0 = new FeatureLayer(featureDefinition);
+                map.addLayer(featureLayer0);
+            }
+
             function isLocalStorage(){
                 if(typeof(Storage)!=="undefined"){
                     return true;
@@ -115,6 +295,7 @@
 
 <body>
 <div id="button-div1">
+    <button id="btn-get-layer">Get Layer</button>
     <button id="btn-get-tiles">Get Replica</button>
 </div>
 <div id="map"></div>
