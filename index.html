@@ -33,6 +33,7 @@
     <script src="http://js.arcgis.com/3.8/"></script>
     <script>
         var map;
+        var replicaLayer0;
         var layersRequest;
         var btnGetReplica;
 
@@ -79,7 +80,19 @@
             }
 
             function handleReplicaSuccess(response){
-                  console.log("Success: ", response.layers);
+                replicaLayer0 = response;
+                console.log("Success: ", response.layers);
+            }
+
+            function isLocalStorage(){
+                if(typeof(Storage)!=="undefined"){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+
+
             }
         });
     </script>
