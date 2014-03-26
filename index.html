@@ -30,6 +30,13 @@
             /*border-radius: 3px;*/
         /*}*/
     </style>
+    <script>var dojoConfig = {
+        packages: [{
+            "name": "modules",
+            "location": location.pathname.replace(/\/[^/]+$/, "") + "modules"
+        }]
+    };
+    </script>
     <script src="http://js.arcgis.com/3.8/"></script>
     <script>
         var map;
@@ -38,6 +45,7 @@
         var layersRequest;
         var btnGetReplica;
         var btnGetLayer;
+        var undoManager;
         var featureLayer0json;
         var layerDef = {
             "objectIdFieldName": "OBJECTID",
@@ -198,98 +206,106 @@
             ]
         }
 
-        require(["esri/map","esri/request","esri/layers/FeatureLayer", "dojo/domReady!"],
-            function(Map,esriRequest,FeatureLayer) {
-            map = new Map("map", {
-                basemap: "topo",
-                center: [-104.98,39.74], // long, lat
-                zoom: 13,
-                sliderStyle: "small"
-            });
+        require([
+            "esri/map","esri/request",
+            "esri/layers/FeatureLayer",
+            "esri/undoManager",
+            "modules/customoperation",
+            "dojo/domReady!"],
+            function(Map,esriRequest,FeatureLayer,UndoManager,CustomOperation) {
+                map = new Map("map", {
+                    basemap: "topo",
+                    center: [-104.98,39.74], // long, lat
+                    zoom: 13,
+                    sliderStyle: "small"
+                });
 
-            featureLayer0 = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/0",{
-                 mode: FeatureLayer.MODE_SNAPSHOT,
-                 outFields: ["*"]
-            });
+                undoManager = new UndoManager();
 
-            featureLayer0.setDefinitionExpression("state = 'Colorado'");
+                featureLayer0 = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/0",{
+                     mode: FeatureLayer.MODE_SNAPSHOT,
+                     outFields: ["*"]
+                });
 
-            map.addLayer(featureLayer0);
+                featureLayer0.setDefinitionExpression("state = 'Colorado'");
 
-            featureLayer0.on("load",function(evt){
-                console.log("map loaded");
-            });
+                map.addLayer(featureLayer0);
 
-            btnGetReplica = document.getElementById("btn-get-tiles");
+                featureLayer0.on("load",function(evt){
+                    console.log("map loaded");
+                });
 
-            btnGetLayer = document.getElementById("btn-get-layer");
+                btnGetReplica = document.getElementById("btn-get-tiles");
 
-            btnGetReplica.onclick = function(evt){
-                getReplica();
-            }.bind(this)
+                btnGetLayer = document.getElementById("btn-get-layer");
 
-            btnGetLayer.onclick = function(evt){
-                loadReplica();
-            }.bind(this)
+                btnGetReplica.onclick = function(evt){
+                    getReplica();
+                }.bind(this)
 
-            function getReplica(){
-                var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
-                var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/createReplica";
-                //var layerUrl = "http://services1.arcgis.com/M8KJPUwAXP8jhtnM/arcgis/rest/services/b_cycle_stations/FeatureServer/0/createReplica";
-                var layersRequest = esriRequest({
-                    url: layerUrl,
-                    content: {
-                        f: "json",
-                        layers:"0",
-                        geometry:extent,
-                        geometryType:"esriGeometryEnvelope",
-                        inSR:"102100",
-                        transportType: "esriTransportTypeEmbedded",
-                        returnAttachments:true
-                    },
-                    handleAs: "json",
-                    callbackParamName: "callback"
-                },{usePost:true});
-                layersRequest.then(
-                        function(response) {
-                            handleReplicaSuccess(response);
-                        }, function(error) {
-                            console.log("Error: ", error.message);
-                        });
-            }
+                btnGetLayer.onclick = function(evt){
+                    loadReplica();
+                }.bind(this)
 
-            function handleReplicaSuccess(response){
-                replicaLayer0 = response;
-                localStorage.replicaLayer0 = JSON.stringify(response);
-                console.log("Success: ", response.layers);
-            }
+                function getReplica(){
+                    var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
+                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/createReplica";
+                    //var layerUrl = "http://services1.arcgis.com/M8KJPUwAXP8jhtnM/arcgis/rest/services/b_cycle_stations/FeatureServer/0/createReplica";
+                    var layersRequest = esriRequest({
+                        url: layerUrl,
+                        content: {
+                            f: "json",
+                            layers:"0",
+                            geometry:extent,
+                            geometryType:"esriGeometryEnvelope",
+                            inSR:"102100",
+                            transportType: "esriTransportTypeEmbedded",
+                            returnAttachments:true
+                        },
+                        handleAs: "json",
+                        callbackParamName: "callback"
+                    },{usePost:true});
+                    layersRequest.then(
+                            function(response) {
+                                handleReplicaSuccess(response);
+                            }, function(error) {
+                                console.log("Error: ", error.message);
+                            });
+                }
 
-            function loadReplica(){
-                var t = JSON.parse(localStorage.replicaLayer0);
-                var featureDefinition = {
-                    "layerDefinition":layerDef,
-                    "featureSet":{
-                        "features": t.layers[0].features,
-                        "geometryType": "esriGeometryPoint"
+                function handleReplicaSuccess(response){
+                    replicaLayer0 = response;
+                    localStorage.replicaLayer0 = JSON.stringify(response);
+                    console.log("Success: ", response.layers);
+                }
+
+                function loadReplica(){
+                    var t = JSON.parse(localStorage.replicaLayer0);
+                    var featureDefinition = {
+                        "layerDefinition":layerDef,
+                        "featureSet":{
+                            "features": t.layers[0].features,
+                            "geometryType": "esriGeometryPoint"
+                        }
+
                     }
 
+                    featureLayer0 = new FeatureLayer(featureDefinition);
+                    map.addLayer(featureLayer0);
                 }
 
-                featureLayer0 = new FeatureLayer(featureDefinition);
-                map.addLayer(featureLayer0);
+                function isLocalStorage(){
+                    if(typeof(Storage)!=="undefined"){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+
+
+                }
             }
-
-            function isLocalStorage(){
-                if(typeof(Storage)!=="undefined"){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-
-
-            }
-        });
+        );
     </script>
 </head>
 
