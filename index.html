@@ -207,13 +207,15 @@
         }
 
         require([
-            "esri/map","esri/request",
+            "esri/map",
+            "esri/request",
             "esri/layers/FeatureLayer",
             "esri/undoManager",
+            "esri/symbols/PictureMarkerSymbol",
             "dojo/_base/connect",
             "modules/customoperation",
             "dojo/domReady!"],
-            function(Map,esriRequest,FeatureLayer,UndoManager,connect,CustomOperation) {
+            function(Map,esriRequest,FeatureLayer,UndoManager,PictureMarkerSymbol,connect,CustomOperation) {
                 map = new Map("map", {
                     basemap: "topo",
                     center: [-104.98,39.74], // long, lat
@@ -234,10 +236,32 @@
                     console.log("map loaded");
                 });
 
-                setupUndoManager();
-                setupListeners();
+                map.on("click",function(evt){
+                    var graphic = new esri.Graphic(evt.mapPoint, markerSymbol);
+                    var operation = new CustomOperation.Add({
+                        graphicsLayer: featureLayer0,
+                        addedGraphic: graphic
+                    })
 
-                function setupListeners(){
+                    undoManager.add(operation);
+                    featureLayer0.add(graphic);
+                }.bind(this));
+
+                // Create the marker symbol
+                var markerSymbol = new PictureMarkerSymbol({
+                    "angle":0,
+                    "xoffset":0,
+                    "yoffset":0,
+                    "type":"esriPMS",
+                    "url":"images/green-pin.png",
+                    "width":35,
+                    "height":35
+                })
+
+                setupUndoManager();
+                setupReplicaListeners();
+
+                function setupReplicaListeners(){
                     btnGetReplica = document.getElementById("btn-get-tiles");
                     btnGetLayer = document.getElementById("btn-get-layer");
 
@@ -252,16 +276,18 @@
 
                 function setupUndoManager(){
                     undoManager = new UndoManager();
+                    undoManager.canRedo = true;
+                    undoManager.canUndo = true;
 
-                    btnRedo = document.getElementById("redo");
-                    btnUndo = document.getElementById("undo");
+                    btnRedo = document.getElementById("btn-redo");
+                    btnUndo = document.getElementById("btn-undo");
 
                     btnRedo.onclick = function(evt){
-                        getReplica();
+                        undoManager.redo();
                     }.bind(this)
 
                     btnUndo.onclick = function(evt){
-                        loadReplica();
+                        undoManager.undo();
                     }.bind(this)
 
                     connect.connect(undoManager,"onChange",function(){
@@ -281,6 +307,32 @@
                 }
 
                 function getReplica(){
+                    var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
+                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/createReplica";
+                    //var layerUrl = "http://services1.arcgis.com/M8KJPUwAXP8jhtnM/arcgis/rest/services/b_cycle_stations/FeatureServer/0/createReplica";
+                    var layersRequest = esriRequest({
+                        url: layerUrl,
+                        content: {
+                            f: "json",
+                            layers:"0",
+                            geometry:extent,
+                            geometryType:"esriGeometryEnvelope",
+                            inSR:"102100",
+                            transportType: "esriTransportTypeEmbedded",
+                            returnAttachments:true
+                        },
+                        handleAs: "json",
+                        callbackParamName: "callback"
+                    },{usePost:true});
+                    layersRequest.then(
+                            function(response) {
+                                handleReplicaSuccess(response);
+                            }, function(error) {
+                                console.log("Error: ", error.message);
+                            });
+                }
+
+                function synchronizeReplica(){
                     var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
                     var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/createReplica";
                     //var layerUrl = "http://services1.arcgis.com/M8KJPUwAXP8jhtnM/arcgis/rest/services/b_cycle_stations/FeatureServer/0/createReplica";
@@ -346,12 +398,9 @@
 <div id="button-div1">
     <button id="btn-get-tiles">1. Get Replica</button>
     <button id="btn-get-layer">2. Add Replica to map</button>
-    <button class="right-btn" id="undo">
-        Undo
-    </button>
-    <button class="right-btn" id="redo">
-        Redo
-    </button>
+
+    <button class="right-btn" id="btn-undo">Undo</button>
+    <button class="right-btn" id="btn-redo">Redo</button>
 
 </div>
 <div id="map"></div>
