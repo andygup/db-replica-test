@@ -276,8 +276,9 @@
                     btnSyncReplica.onclick = function(evt){
                         var edits = JSON.stringify(getUndoMgrGraphic());
                         var replicaJson = JSON.stringify(createUpdateReplicaJSON(edits));
-                        console.log("replicaJSON to be committed: " + replicaJson)
-                        synchronizeReplica(edits);
+                        var unescapeJson = replicaJson.replace(/\\"/g, '');;
+                        console.log("replicaJSON to be committed: " + unescapeJson)
+                        synchronizeReplica(unescapeJson);
                     }.bind(this)
                 }
 
@@ -350,8 +351,8 @@
                         content: {
                             f: "json",
                             replicaID:replica.replicaID,
-                            syncLayers: JSON.stringify({"syncDirection": "bidirectional"}),
-                            replicaServerGen:JSON.stringify(replica.layerServerGens[0]),
+//                            syncLayers: JSON.stringify({"syncDirection": "bidirectional"}),
+//                            replicaServerGen:JSON.stringify(replica.layerServerGens[0]),
                             closeReplica:true,
                             returnIdsForAdds:true,
                             transportType: "esriTransportTypeEmbedded",
