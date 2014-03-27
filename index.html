@@ -262,7 +262,7 @@
 
                 function setupReplicaListeners(){
                     btnGetReplica = document.getElementById("btn-get-replica");
-                    btnSyncReplica = document.getElementById("btn-btn-sync-replica");
+                    btnSyncReplica = document.getElementById("btn-sync-replica");
                     btnGetLayer = document.getElementById("btn-get-layer");
 
                     btnGetReplica.onclick = function(evt){
@@ -274,7 +274,10 @@
                     }.bind(this)
 
                     btnSyncReplica.onclick = function(evt){
-                        synchronizeReplica()
+                        var edits = JSON.stringify(getUndoMgrGraphic());
+                        var replicaJson = JSON.stringify(createUpdateReplicaJSON(edits));
+                        console.log("replicaJSON to be committed: " + replicaJson)
+                        synchronizeReplica(edits);
                     }.bind(this)
                 }
 
@@ -336,7 +339,7 @@
                             });
                 }
 
-                function synchronizeReplica(){
+                function synchronizeReplica(edits){
 
                     var replica = JSON.parse(localStorage.replicaLayer0);
 
@@ -351,7 +354,7 @@
                             closeReplica:true,
                             returnIdsForAdds:true,
                             transportType: "esriTransportTypeEmbedded",
-                            edits: getUndoMgrGraphic()
+                            edits: edits
                         },
                         handleAs: "json",
                         callbackParamName: "callback"
@@ -371,6 +374,7 @@
                 function handleReplicaSuccess(response){
                     localStorage.replicaLayer0 = JSON.stringify(response);
                     console.log("Success: ", response.layers);
+                    alert("Replica retrieved successfully");
                 }
 
                 function loadReplica(){
@@ -386,6 +390,17 @@
 
                     featureLayer0 = new FeatureLayer(featureDefinition);
                     map.addLayer(featureLayer0);
+                }
+
+                function createUpdateReplicaJSON(edits){
+                   return [{"id" : 0,
+                       "features":{
+                           "adds":[
+                            edits
+                           ]
+                       }
+
+                   }]
                 }
 
                 function isLocalStorage(){
