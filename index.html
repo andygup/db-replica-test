@@ -39,10 +39,9 @@
     <script src="http://js.arcgis.com/3.8/"></script>
     <script>
         var map;
-        var replicaLayer0;
         var featureLayer0;
         var layersRequest;
-        var btnGetReplica;
+        var btnGetReplica,btnSyncReplica;
         var btnUndo,btnRedo;
         var btnGetLayer;
         var undoManager;
@@ -262,7 +261,8 @@
                 setupReplicaListeners();
 
                 function setupReplicaListeners(){
-                    btnGetReplica = document.getElementById("btn-get-tiles");
+                    btnGetReplica = document.getElementById("btn-get-replica");
+                    btnSyncReplica = document.getElementById("btn-btn-sync-replica");
                     btnGetLayer = document.getElementById("btn-get-layer");
 
                     btnGetReplica.onclick = function(evt){
@@ -271,6 +271,10 @@
 
                     btnGetLayer.onclick = function(evt){
                         loadReplica();
+                    }.bind(this)
+
+                    btnSyncReplica.onclick = function(evt){
+                        synchronizeReplica()
                     }.bind(this)
                 }
 
@@ -333,33 +337,38 @@
                 }
 
                 function synchronizeReplica(){
+
+                    var replica = JSON.parse(localStorage.replicaLayer0);
+
                     var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
-                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/createReplica";
-                    //var layerUrl = "http://services1.arcgis.com/M8KJPUwAXP8jhtnM/arcgis/rest/services/b_cycle_stations/FeatureServer/0/createReplica";
+                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/synchronizeReplica";
                     var layersRequest = esriRequest({
                         url: layerUrl,
                         content: {
                             f: "json",
-                            layers:"0",
-                            geometry:extent,
-                            geometryType:"esriGeometryEnvelope",
-                            inSR:"102100",
+                            replicaID:replica.replicaID,
+                            replicaServerGen:replica.replicaServerGen,
+                            closeReplica:true,
+                            returnIdsForAdds:true,
                             transportType: "esriTransportTypeEmbedded",
-                            returnAttachments:true
+                            edits: getUndoMgrGraphic()
                         },
                         handleAs: "json",
                         callbackParamName: "callback"
                     },{usePost:true});
                     layersRequest.then(
                             function(response) {
-                                handleReplicaSuccess(response);
+                                console.log("sync replica: " + JSON.stringify(response))
                             }, function(error) {
-                                console.log("Error: ", error.message);
+                                console.log("sync replica error: ", error.message);
                             });
                 }
 
+                function getUndoMgrGraphic(){
+                    return undoManager._historyStack[0]._addedGraphic.toJson();
+                }
+
                 function handleReplicaSuccess(response){
-                    replicaLayer0 = response;
                     localStorage.replicaLayer0 = JSON.stringify(response);
                     console.log("Success: ", response.layers);
                 }
@@ -396,8 +405,10 @@
 
 <body>
 <div id="button-div1">
-    <button id="btn-get-tiles">1. Get Replica</button>
+    <button id="btn-get-replica">1. Get Replica</button>
     <button id="btn-get-layer">2. Add Replica to map</button>
+    <button>3. Click here then click on map</button>
+    <button id="btn-sync-replica">4. Sync Replica</button>
 
     <button class="right-btn" id="btn-undo">Undo</button>
     <button class="right-btn" id="btn-redo">Redo</button>
