@@ -350,7 +350,8 @@
                         content: {
                             f: "json",
                             replicaID:replica.replicaID,
-                            replicaServerGen:replica.replicaServerGen,
+                            syncLayers: JSON.stringify({"syncDirection": "bidirectional"}),
+                            replicaServerGen:JSON.stringify(replica.layerServerGens[0]),
                             closeReplica:true,
                             returnIdsForAdds:true,
                             transportType: "esriTransportTypeEmbedded",
@@ -362,13 +363,32 @@
                     layersRequest.then(
                             function(response) {
                                 console.log("sync replica: " + JSON.stringify(response))
+                                alert("sync replica success: " + JSON.stringify(response))
                             }, function(error) {
                                 console.log("sync replica error: ", error.message);
                             });
                 }
 
                 function getUndoMgrGraphic(){
-                    return undoManager._historyStack[0]._addedGraphic.toJson();
+                    var graphic = undoManager._historyStack[0]._addedGraphic;
+                    graphic.attributes = {
+                        "brewery_id" : 1,
+                        "latitude" : 30.22340012,
+                        "longitude" : -97.7696991,
+                        "accuracy" : "ROOFTOP",
+                        "name" : "(512) Brewing Company",
+                        "address1" : "407 Radam, F200",
+                        "address2" : null,
+                        "city" : "Austin",
+                        "state" : "Texas",
+                        "code" : 78745,
+                        "country" : "United States",
+                        "phone" : "512.707.2337",
+                        "website" : "",
+                        "descript" : "(512) Brewing Company is a microbrewery located in the heart of Austin that brews for the community using as many local, domestic and organic ingredients as possible."
+                    }
+
+                    return graphic.toJson();
                 }
 
                 function handleReplicaSuccess(response){
@@ -397,7 +417,9 @@
                        "features":{
                            "adds":[
                             edits
-                           ]
+                           ],
+                           "updates":null,
+                           "deleteIds":null
                        }
 
                    }]
