@@ -46,6 +46,10 @@
         var btnGetLayer;
         var undoManager;
         var featureLayer0json;
+        var REPLICA_EXTENT_KEY = "replicaExtent";   //for localStorage
+        var REPLICA_LAYER_KEY = "replicaLayerKey";  //for localStorage
+        var REPLICA_ID_KEY = "replicaId";           //for localStorage
+        var REPLICA_USE_EXISTING = true;            //if false then we create a new replica
         var layerDef = {
             "objectIdFieldName": "OBJECTID",
             "globalIdFieldName": "",
@@ -233,6 +237,7 @@
 
                 featureLayer0.on("load",function(evt){
                     console.log("map loaded");
+                    localStorage.setItem(REPLICA_EXTENT_KEY,JSON.stringify(map.extent));
                 });
 
                 map.on("click",function(evt){
@@ -276,9 +281,9 @@
                     btnSyncReplica.onclick = function(evt){
                         var edits = getUndoMgrGraphic();
                         var replicaJson = JSON.stringify(createUpdateReplicaJSON(edits));
-                        var unescapeJson = replicaJson.replace(/\\"/g, '');
-                        console.log("replicaJSON to be committed: " + unescapeJson)
-                        synchronizeReplica(unescapeJson);
+                        var unescapedJson = replicaJson.replace(/\\"/g, '');
+                        console.log("replicaJSON to be committed: " + unescapedJson)
+                        synchronizeReplica(unescapedJson);
                     }.bind(this)
                 }
 
@@ -333,9 +338,9 @@
                     },{usePost:true});
                     layersRequest.then(
                             function(response) {
-                                handleReplicaSuccess(response);
+                                handleCreateReplicaSuccess(response);
                             }, function(error) {
-                                console.log("Error: ", error.message);
+                                console.log("Error: ", JSON.stringify(error));
                             });
                 }
 
@@ -377,7 +382,26 @@
                                 console.log("sync replica: " + JSON.stringify(response))
                                 alert("sync replica success: " + JSON.stringify(response))
                             }, function(error) {
-                                console.log("sync replica error: ", error.message);
+                                console.log("sync replica error: ", JSON.stringify(error));
+                            });
+                }
+
+                function getReplica(){
+
+                    var gExtent = JSON.parse(localStorage.getItem(REPLICA_EXTENT_KEY));
+                    var extent = gExtent.xmin + "," + gExtent.ymin + "," + gExtent.xmax + "," + gExtent.ymax;
+                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/replicas";
+                    //replica.layerServerGens[0].serverGen
+                    var layersRequest = esriRequest({
+                        url: layerUrl,
+                        handleAs: "json",
+                        callbackParamName: "callback"
+                    },{usePost:false});
+                    layersRequest.then(
+                            function(response) {
+                                console.log("Get list of replicas: " + JSON.stringify(response))
+                            }, function(error) {
+                                console.log("Get list of replicas error: ", JSON.stringify(error));
                             });
                 }
 
@@ -410,7 +434,7 @@
                     return graphic.toJson();
                 }
 
-                function handleReplicaSuccess(response){
+                function handleCreateReplicaSuccess(response){
                     localStorage.replicaLayer0 = JSON.stringify(response);
                     console.log("Success: ", response.layers);
                     alert("Replica retrieved successfully");
