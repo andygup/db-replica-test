@@ -266,7 +266,7 @@
                     btnGetLayer = document.getElementById("btn-get-layer");
 
                     btnGetReplica.onclick = function(evt){
-                        getReplica();
+                        createReplica();
                     }.bind(this)
 
                     btnGetLayer.onclick = function(evt){
@@ -274,9 +274,9 @@
                     }.bind(this)
 
                     btnSyncReplica.onclick = function(evt){
-                        var edits = JSON.stringify(getUndoMgrGraphic());
+                        var edits = getUndoMgrGraphic();
                         var replicaJson = JSON.stringify(createUpdateReplicaJSON(edits));
-                        var unescapeJson = replicaJson.replace(/\\"/g, '');;
+                        var unescapeJson = replicaJson.replace(/\\"/g, '');
                         console.log("replicaJSON to be committed: " + unescapeJson)
                         synchronizeReplica(unescapeJson);
                     }.bind(this)
@@ -314,10 +314,9 @@
                     });
                 }
 
-                function getReplica(){
+                function createReplica(){
                     var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
                     var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/createReplica";
-                    //var layerUrl = "http://services1.arcgis.com/M8KJPUwAXP8jhtnM/arcgis/rest/services/b_cycle_stations/FeatureServer/0/createReplica";
                     var layersRequest = esriRequest({
                         url: layerUrl,
                         content: {
@@ -343,18 +342,30 @@
                 function synchronizeReplica(edits){
 
                     var replica = JSON.parse(localStorage.replicaLayer0);
+                    var serverGen = JSON.stringify(replica.layerServerGens[0]);
+                    var syncLayers =  (JSON.stringify([replica.layerServerGens[0]])).replace(/\\"/g, '')
 
                     var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
                     var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/synchronizeReplica";
+                    //replica.layerServerGens[0].serverGen
                     var layersRequest = esriRequest({
                         url: layerUrl,
                         content: {
                             f: "json",
                             replicaID:replica.replicaID,
-//                            syncLayers: JSON.stringify({"syncDirection": "bidirectional"}),
-//                            replicaServerGen:JSON.stringify(replica.layerServerGens[0]),
-                            closeReplica:true,
-                            returnIdsForAdds:true,
+                            replicaServerGen:"2013",
+                            syncLayers: "[{'id':0,'serverGen':2013}]",
+                            "syncDirection": "bidirectional",
+                            "dataFormat":"json",
+                            "async": "false",
+                            closeReplica:"false",
+                            returnIdsForAdds:"true",
+                            "returnAttachmentsDataByUrl": "false",
+                            "returnIdsForAdds": "true",
+                            "rollbackOnFailure": "true",
+                            "editsUploadId": "",
+                            "editsUploadFormat":"json",
+                            "token":"",
                             transportType: "esriTransportTypeEmbedded",
                             edits: edits
                         },
@@ -373,13 +384,20 @@
                 function getUndoMgrGraphic(){
                     var graphic = undoManager._historyStack[0]._addedGraphic;
                     graphic.attributes = {
-                        "brewery_id" : 1,
+                        "ObjectId":6669,
+                        "GlobalID":"9d4d2b23-9ba0-4d0c-a895-3667098ea9a8",
+                        "CreationDate":1395953482000,
+                        "Creator":"",
+                        "EditDate": 1395953482000,
+                        "Editor": "",
+                        "id":"10000",
+                        "brewery_id" : null,
                         "latitude" : 30.22340012,
                         "longitude" : -97.7696991,
                         "accuracy" : "ROOFTOP",
                         "name" : "(512) Brewing Company",
                         "address1" : "407 Radam, F200",
-                        "address2" : null,
+                        "address2" : "",
                         "city" : "Austin",
                         "state" : "Texas",
                         "code" : 78745,
@@ -419,8 +437,8 @@
                            "adds":[
                             edits
                            ],
-                           "updates":null,
-                           "deleteIds":null
+                           "updates":[],
+                           "deleteIds":[]
                        }
 
                    }]
