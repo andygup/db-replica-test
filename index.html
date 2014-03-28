@@ -245,7 +245,9 @@
 
                     var replicaId = localStorage.getItem(REPLICA_ID_KEY);
                     if(replicaId && REPLICA_USE_EXISTING == true){
-                        getReplicasInfos(replicaId);
+                        getReplicasInfos(replicaId,function(response,err){
+                            console.log("replica! " + response);
+                        });
                     }
                     else{
                         console.log("no replica id exists in localstorage")
@@ -437,11 +439,13 @@
                             });
                 }
 
-                function getReplicasInfos(/* String */replicaId){
+                function getReplicasInfos(/* String */replicaId,callback){
 
                     var gExtent = JSON.parse(localStorage.getItem(REPLICA_EXTENT_KEY));
                     var extent = gExtent.xmin + "," + gExtent.ymin + "," + gExtent.xmax + "," + gExtent.ymax;
-                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/replicas/" + replicaId;
+                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/replicas/" +
+                            replicaId +
+                            "?f=json";
                     var layersRequest = esriRequest({
                         url: layerUrl,
                         handleAs: "json",
@@ -449,10 +453,10 @@
                     },{usePost:false});
                     layersRequest.then(
                             function(response) {
-                                return response;
+                                callback(response,null);
                                 console.log("Get replica info: " + JSON.stringify(response))
                             }, function(error) {
-                                return error;
+                                callback(null,error);
                                 console.log("Get replica info error: ", JSON.stringify(error));
                             });
                 }
