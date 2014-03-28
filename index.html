@@ -249,7 +249,7 @@
                     }
                     else{
                         console.log("no replica id exists in localstorage")
-                        var list = getReplicasList(function(response,err){
+                        getReplicasList(function(response,err){
                             if(response != null){
                                 console.log(response)
                                 var select = document.getElementById("selectReplicaId");
@@ -532,6 +532,11 @@
                 }
             }
         );
+
+        function selectIdChange(evt){
+            console.log("Setting replica id to: " + evt.value);
+            localStorage.setItem(REPLICA_ID_KEY,evt.value);
+        }
     </script>
 </head>
 
@@ -543,7 +548,7 @@
     <button id="btn-sync-replica">4. Sync Replica</button>
 
     <form id="replicaForm" class="right-form">
-        <select id="selectReplicaId">
+        <select id="selectReplicaId" onchange="selectIdChange(this)">
             <option>Choose ID</option>
         </select>
     </form>
