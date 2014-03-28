@@ -28,6 +28,11 @@
             position: relative; float: right;
             padding: 5px;
         }
+        .right-form{
+            position: relative; float: right;
+            padding: 5px;
+            color: black;
+        }
     </style>
     <script>var dojoConfig = {
         packages: [{
@@ -237,8 +242,32 @@
 
                 featureLayer0.on("load",function(evt){
                     console.log("map loaded");
-                    localStorage.setItem(REPLICA_EXTENT_KEY,JSON.stringify(map.extent));
-                    getReplicasList();
+
+                    var replicaId = localStorage.getItem(REPLICA_ID_KEY);
+                    if(replicaId && REPLICA_USE_EXISTING == true){
+                        getReplicasInfos(replicaId);
+                    }
+                    else{
+                        console.log("no replica id exists in localstorage")
+                        var list = getReplicasList(function(response,err){
+                            if(response != null){
+                                console.log(response)
+                                var select = document.getElementById("selectReplicaId");
+                                var length = response.length;
+
+                                for(var i = 0; i < length; i++){
+                                    var opt = response[i];
+                                    var element = document.createElement("option");
+                                    element.textContent = opt.replicaName;
+                                    element.value = opt.replicaID;
+                                    select.appendChild(element);
+                                }
+                            }
+                        });
+                    }
+
+                    //localStorage.setItem(REPLICA_EXTENT_KEY,JSON.stringify(map.extent));
+                    //getReplicasList();
                 });
 
                 map.on("click",function(evt){
@@ -387,7 +416,7 @@
                             });
                 }
 
-                function getReplicasList(){
+                function getReplicasList(callback){
 
                     var gExtent = JSON.parse(localStorage.getItem(REPLICA_EXTENT_KEY));
                     var extent = gExtent.xmin + "," + gExtent.ymin + "," + gExtent.xmax + "," + gExtent.ymax;
@@ -400,9 +429,31 @@
                     },{usePost:false});
                     layersRequest.then(
                             function(response) {
+                                callback(response,null);
                                 console.log("Get list of replicas: " + JSON.stringify(response))
                             }, function(error) {
+                                callback(null,error);
                                 console.log("Get list of replicas error: ", JSON.stringify(error));
+                            });
+                }
+
+                function getReplicasInfos(/* String */replicaId){
+
+                    var gExtent = JSON.parse(localStorage.getItem(REPLICA_EXTENT_KEY));
+                    var extent = gExtent.xmin + "," + gExtent.ymin + "," + gExtent.xmax + "," + gExtent.ymax;
+                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/replicas/" + replicaId;
+                    var layersRequest = esriRequest({
+                        url: layerUrl,
+                        handleAs: "json",
+                        callbackParamName: "callback"
+                    },{usePost:false});
+                    layersRequest.then(
+                            function(response) {
+                                return response;
+                                console.log("Get replica info: " + JSON.stringify(response))
+                            }, function(error) {
+                                return error;
+                                console.log("Get replica info error: ", JSON.stringify(error));
                             });
                 }
 
@@ -491,6 +542,11 @@
     <button>3. Click here then click on map</button>
     <button id="btn-sync-replica">4. Sync Replica</button>
 
+    <form id="replicaForm" class="right-form">
+        <select id="selectReplicaId">
+            <option>Choose ID</option>
+        </select>
+    </form>
     <button class="right-btn" id="btn-undo">Undo</button>
     <button class="right-btn" id="btn-redo">Redo</button>
 
