@@ -238,6 +238,7 @@
                 featureLayer0.on("load",function(evt){
                     console.log("map loaded");
                     localStorage.setItem(REPLICA_EXTENT_KEY,JSON.stringify(map.extent));
+                    getReplicasList();
                 });
 
                 map.on("click",function(evt){
@@ -386,11 +387,11 @@
                             });
                 }
 
-                function getReplica(){
+                function getReplicasList(){
 
                     var gExtent = JSON.parse(localStorage.getItem(REPLICA_EXTENT_KEY));
                     var extent = gExtent.xmin + "," + gExtent.ymin + "," + gExtent.xmax + "," + gExtent.ymax;
-                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/replicas";
+                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/replicas?f=json";
                     //replica.layerServerGens[0].serverGen
                     var layersRequest = esriRequest({
                         url: layerUrl,
