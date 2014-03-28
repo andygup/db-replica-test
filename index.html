@@ -224,8 +224,9 @@
             "esri/symbols/PictureMarkerSymbol",
             "dojo/_base/connect",
             "modules/customoperation",
+            "modules/generateUID",
             "dojo/domReady!"],
-            function(Map,esriRequest,FeatureLayer,UndoManager,PictureMarkerSymbol,connect,CustomOperation) {
+            function(Map,esriRequest,FeatureLayer,UndoManager,PictureMarkerSymbol,connect,CustomOperation,GenerateUID) {
                 map = new Map("map", {
                     basemap: "topo",
                     center: [-104.98,39.74], // long, lat
@@ -453,7 +454,7 @@
                 }
 
                 function getExtent(){
-                    var gExtent = JSON.parse(localStorage.getItem(REPLICA_EXTENT_KEY));
+                    var gExtent = map.extent;
                     return gExtent.xmin + "," + gExtent.ymin + "," + gExtent.xmax + "," + gExtent.ymax;
                 }
 
@@ -461,7 +462,7 @@
                     var graphic = undoManager._historyStack[0]._addedGraphic;
                     graphic.attributes = {
                         "ObjectId":6669,
-                        "GlobalID":"9d4d2b23-9ba0-4d0c-a895-3667098ea9a8",
+                        "GlobalID":GenerateUID.generate(),
                         "CreationDate":1395953482000,
                         "Creator":"",
                         "EditDate": 1395953482000,
