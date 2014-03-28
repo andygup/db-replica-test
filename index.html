@@ -55,6 +55,7 @@
         var REPLICA_LAYER_KEY = "replicaLayerKey";  //for localStorage
         var REPLICA_ID_KEY = "replicaId";           //for localStorage
         var REPLICA_USE_EXISTING = true;            //if false then we create a new replica
+        var REPLICA_LAYER_SERVERGENS_KEY = "replicaLayerServerGens"; //for localStorage
         var layerDef = {
             "objectIdFieldName": "OBJECTID",
             "globalIdFieldName": "",
@@ -246,7 +247,8 @@
                     var replicaId = localStorage.getItem(REPLICA_ID_KEY);
                     if(replicaId && REPLICA_USE_EXISTING == true){
                         getReplicasInfos(replicaId,function(response,err){
-                            console.log("replica! " + response);
+                            console.log("replica! " + response.layerServerGens);
+                            localStorage.setItem(REPLICA_LAYER_SERVERGENS_KEY,JSON.stringify(response.layerServerGens));
                         });
                     }
                     else{
@@ -352,7 +354,7 @@
                 }
 
                 function createReplica(){
-                    var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
+                    var extent = getExtent()
                     var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/createReplica";
                     var layersRequest = esriRequest({
                         url: layerUrl,
@@ -382,7 +384,7 @@
                     var serverGen = JSON.stringify(replica.layerServerGens[0]);
                     var syncLayers =  (JSON.stringify([replica.layerServerGens[0]])).replace(/\\"/g, '')
 
-                    var extent = map.extent.xmin + "," + map.extent.ymin + "," + map.extent.xmax + "," + map.extent.ymax;
+                    var extent = getExtent()
                     var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/synchronizeReplica";
                     //replica.layerServerGens[0].serverGen
                     var layersRequest = esriRequest({
@@ -412,6 +414,7 @@
                     layersRequest.then(
                             function(response) {
                                 console.log("sync replica: " + JSON.stringify(response))
+                                localStorage.setItem(REPLICA_LAYER_SERVERGENS_KEY,JSON.stringify(response.layerServerGens))
                                 alert("sync replica success: " + JSON.stringify(response))
                             }, function(error) {
                                 console.log("sync replica error: ", JSON.stringify(error));
@@ -419,9 +422,7 @@
                 }
 
                 function getReplicasList(callback){
-
-                    var gExtent = JSON.parse(localStorage.getItem(REPLICA_EXTENT_KEY));
-                    var extent = gExtent.xmin + "," + gExtent.ymin + "," + gExtent.xmax + "," + gExtent.ymax;
+                    var extent = getExtent()
                     var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/replicas?f=json";
                     //replica.layerServerGens[0].serverGen
                     var layersRequest = esriRequest({
@@ -440,9 +441,7 @@
                 }
 
                 function getReplicasInfos(/* String */replicaId,callback){
-
-                    var gExtent = JSON.parse(localStorage.getItem(REPLICA_EXTENT_KEY));
-                    var extent = gExtent.xmin + "," + gExtent.ymin + "," + gExtent.xmax + "," + gExtent.ymax;
+                    var extent = getExtent()
                     var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/replicas/" +
                             replicaId +
                             "?f=json";
@@ -459,6 +458,11 @@
                                 callback(null,error);
                                 console.log("Get replica info error: ", JSON.stringify(error));
                             });
+                }
+
+                function getExtent(){
+                    var gExtent = JSON.parse(localStorage.getItem(REPLICA_EXTENT_KEY));
+                    return gExtent.xmin + "," + gExtent.ymin + "," + gExtent.xmax + "," + gExtent.ymax;
                 }
 
                 function getUndoMgrGraphic(){
