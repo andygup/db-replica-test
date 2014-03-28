@@ -54,6 +54,7 @@
         var REPLICA_EXTENT_KEY = "replicaExtent";   //for localStorage
         var REPLICA_LAYER_KEY = "replicaLayerKey";  //for localStorage
         var REPLICA_ID_KEY = "replicaId";           //for localStorage
+        var REPLICA_LAYER0_KEY = "replicaLayer0";   //for localStorage
         var REPLICA_USE_EXISTING = true;            //if false then we create a new replica
         var REPLICA_LAYER_SERVERGENS_KEY = "replicaLayerServerGens"; //for localStorage
         var layerDef = {
@@ -309,7 +310,7 @@
                     }.bind(this)
 
                     btnGetLayer.onclick = function(evt){
-                        loadReplica();
+                        addLocalReplicaToMap();
                     }.bind(this)
 
                     btnSyncReplica.onclick = function(evt){
@@ -380,8 +381,10 @@
 
                 function synchronizeReplica(edits){
 
-                    var replica = JSON.parse(localStorage.replicaLayer0);
-                    var serverGen = JSON.stringify(replica.layerServerGens[0]);
+                    var replica = JSON.parse(localStorage.getItem(REPLICA_LAYER0_KEY));
+                    //var serverGen = JSON.stringify(replica.layerServerGens[0]);
+                    var serverGen = JSON.parse(localStorage.getItem(REPLICA_LAYER_SERVERGENS_KEY));
+                    var replicaId = localStorage.getItem(REPLICA_ID_KEY);
                     var syncLayers =  (JSON.stringify([replica.layerServerGens[0]])).replace(/\\"/g, '')
 
                     var extent = getExtent()
@@ -391,9 +394,9 @@
                         url: layerUrl,
                         content: {
                             f: "json",
-                            replicaID:replica.replicaID,
-                            replicaServerGen:"2013",
-                            syncLayers: "[{'id':0,'serverGen':2013}]",
+                            replicaID:replicaId,
+                            replicaServerGen:serverGen.serverGen,
+                            syncLayers: localStorage.getItem(REPLICA_LAYER_SERVERGENS_KEY),
                             "syncDirection": "bidirectional",
                             "dataFormat":"json",
                             "async": "false",
@@ -495,13 +498,13 @@
                 }
 
                 function handleCreateReplicaSuccess(response){
-                    localStorage.replicaLayer0 = JSON.stringify(response);
+                    localStorage.setItem(REPLICA_LAYER0_KEY,JSON.stringify(response));
                     console.log("Success: ", response.layers);
                     alert("Replica retrieved successfully");
                 }
 
-                function loadReplica(){
-                    var t = JSON.parse(localStorage.replicaLayer0);
+                function addLocalReplicaToMap(){
+                    var t = JSON.parse(localStorage.getItem(REPLICA_LAYER0_KEY));
                     var featureDefinition = {
                         "layerDefinition":layerDef,
                         "featureSet":{
@@ -550,7 +553,7 @@
 
 <body>
 <div id="button-div1">
-    <button id="btn-get-replica">1. Get Replica</button>
+    <button id="btn-get-replica">1. Create New Replica</button>
     <button id="btn-get-layer">2. Add Replica to map</button>
     <button>3. Click here then click on map</button>
     <button id="btn-sync-replica">4. Sync Replica</button>
