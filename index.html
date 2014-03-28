@@ -270,9 +270,6 @@
                             }
                         });
                     }
-
-                    //localStorage.setItem(REPLICA_EXTENT_KEY,JSON.stringify(map.extent));
-                    //getReplicasList();
                 });
 
                 map.on("click",function(evt){
@@ -382,14 +379,9 @@
                 function synchronizeReplica(edits){
 
                     var replica = JSON.parse(localStorage.getItem(REPLICA_LAYER0_KEY));
-                    //var serverGen = JSON.stringify(replica.layerServerGens[0]);
                     var serverGen = JSON.parse(localStorage.getItem(REPLICA_LAYER_SERVERGENS_KEY));
                     var replicaId = localStorage.getItem(REPLICA_ID_KEY);
-                    var syncLayers =  (JSON.stringify([replica.layerServerGens[0]])).replace(/\\"/g, '')
-
-                    var extent = getExtent()
                     var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/synchronizeReplica";
-                    //replica.layerServerGens[0].serverGen
                     var layersRequest = esriRequest({
                         url: layerUrl,
                         content: {
@@ -425,9 +417,7 @@
                 }
 
                 function getReplicasList(callback){
-                    var extent = getExtent()
                     var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/replicas?f=json";
-                    //replica.layerServerGens[0].serverGen
                     var layersRequest = esriRequest({
                         url: layerUrl,
                         handleAs: "json",
@@ -444,7 +434,6 @@
                 }
 
                 function getReplicasInfos(/* String */replicaId,callback){
-                    var extent = getExtent()
                     var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/replicas/" +
                             replicaId +
                             "?f=json";
