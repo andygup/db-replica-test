@@ -59,7 +59,7 @@
         var map;
         var featureLayer0;
         var layersRequest;
-        var btnGetReplica,btnSyncReplica;
+        var btnGetReplica,btnSyncReplica,btnUnregisterReplica;
         var btnUndo,btnRedo;
         var btnGetLayer;
         var undoManager;
@@ -321,6 +321,7 @@
                     btnGetReplica = document.getElementById("btn-get-replica");
                     btnSyncReplica = document.getElementById("btn-sync-replica");
                     btnGetLayer = document.getElementById("btn-get-layer");
+                    btnUnregisterReplica = document.getElementById("btn-btn-unregister-replica");
 
                     btnGetReplica.onclick = function(evt){
                         createReplica();
@@ -336,6 +337,23 @@
                         var unescapedJson = replicaJson.replace(/\\"/g, '');
                         console.log("replicaJSON to be committed: " + unescapedJson)
                         synchronizeReplica(unescapedJson);
+                    }.bind(this)
+
+                    btnUnregisterReplica.onclick = function(evt){
+                        var id = localStorage.getItem(REPLICA_LAYER0_KEY);
+                        if(id == null){
+                            alert("There is no replica id available in local storage");
+                        }
+                        else{
+                            unRegisterReplica(id,function(response,err){
+                                if(response != null){
+                                    alert("Replica #" + id + " successfully unregistered.")
+                                }
+                                else{
+                                    alert("Couldn't unregister replica #" + id + ", error: " + err);
+                                }
+                            });
+                        }
                     }.bind(this)
                 }
 
@@ -450,6 +468,27 @@
                             }, function(error) {
                                 callback(null,error);
                                 console.log("Get list of replicas error: ", JSON.stringify(error));
+                            });
+                }
+
+                function unRegisterReplica(replicaId,callback){
+                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/OpenBeerDB/FeatureServer/unRegisterReplica";
+                    var layersRequest = esriRequest({
+                        url: layerUrl,
+                        content: {
+                            f: "pjson",
+                            replicaID:replicaId
+                        },
+                        handleAs: "json",
+                        callbackParamName: "callback"
+                    },{usePost:true});
+                    layersRequest.then(
+                            function(response) {
+                                callback(response,null);
+                                console.log("Unregister replica: " + JSON.stringify(response))
+                            }, function(error) {
+                                callback(null,error);
+                                console.log("Unregister replica error: ", JSON.stringify(error));
                             });
                 }
 
@@ -576,6 +615,7 @@
     <button class="left-btn" id="btn-get-layer">2. Add Replica to map</button>
     <button class="left-btn" >3. Click here then click on map</button>
     <button class="left-btn" id="btn-sync-replica">4. Sync Replica</button>
+    <button class="left-btn" id="btn-unregister-replica">5. Unregister Replica</button>
 
     <form id="replicaForm" class="right-form">
         <select id="selectReplicaId" onchange="selectIdChange(this)">
