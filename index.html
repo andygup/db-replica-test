@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
-    <title>Replica</title>
+    <title>Replica Demo</title>
     <link rel="stylesheet" href="http://js.arcgis.com/3.8/js/esri/css/esri.css">
     <style>
         html, body, #map {
@@ -25,13 +25,26 @@
             height: 40px;
         }
         .right-btn{
+            background-color: black;
+            color: white;
+            border-color: white;
             position: relative; float: right;
+            padding: 5px;
+            display: none;
+        }
+        .left-btn{
+            background-color: black;
+            color: white;
+            border-color: white;
             padding: 5px;
         }
         .right-form{
             position: relative; float: right;
             padding: 5px;
-            color: black;
+            color: white;
+        }
+        select{
+            background-color: black;
         }
     </style>
     <script>var dojoConfig = {
@@ -491,6 +504,8 @@
                     localStorage.setItem(REPLICA_LAYER0_KEY,JSON.stringify(response));
                     console.log("Success: ", response.layers);
                     alert("Replica retrieved successfully");
+                    btnRedo.display = "inline";
+                    btnUndo.display = "inline";
                 }
 
                 function addLocalReplicaToMap(){
@@ -543,14 +558,14 @@
 
 <body>
 <div id="button-div1">
-    <button id="btn-get-replica">1. Create New Replica</button>
-    <button id="btn-get-layer">2. Add Replica to map</button>
-    <button>3. Click here then click on map</button>
-    <button id="btn-sync-replica">4. Sync Replica</button>
+    <button class="left-btn" id="btn-get-replica">1. Create New Replica</button>
+    <button class="left-btn" id="btn-get-layer">2. Add Replica to map</button>
+    <button class="left-btn" >3. Click here then click on map</button>
+    <button class="left-btn" id="btn-sync-replica">4. Sync Replica</button>
 
     <form id="replicaForm" class="right-form">
         <select id="selectReplicaId" onchange="selectIdChange(this)">
-            <option>Choose ID</option>
+            <option>Choose Replica ID</option>
         </select>
     </form>
     <button class="right-btn" id="btn-undo">Undo</button>
