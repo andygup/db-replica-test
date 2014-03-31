@@ -548,18 +548,59 @@
                             });
                 }
 
+                function validateGlobalID(/* String */globalID,callback){
+                    var layerUrl = "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/OpenBeerDB/FeatureServer/0/query?" +
+                            "where=GlobalID='" + globalID + "'" +
+                            "&f=json";
+                    var layersRequest = esriRequest({
+                        url: layerUrl,
+                        handleAs: "json",
+                        callbackParamName: "callback"
+                    },{usePost:false});
+                    layersRequest.then(
+                            function(response) {
+                                callback(response,null);
+                                console.log("Validate UID: " + JSON.stringify(response))
+                            }, function(error) {
+                                callback(null,error);
+                                console.log("Validate UID error: ", JSON.stringify(error));
+                            });
+                }
+
                 function getExtent(){
                     var gExtent = map.extent;
                     return gExtent.xmin + "," + gExtent.ymin + "," + gExtent.xmax + "," + gExtent.ymax;
                 }
 
+                function getUID(globalId,count){
+
+                    if(count > 3)return false
+
+                    return validateGlobalID(globalId,function(response,err){
+                        if(response.features.length == 0){
+                            return true;
+                        }
+                        else{
+                            var globalId = GenerateUID.generate();
+                            getUID(globalId,count++)
+                        }
+                    })
+                }
+
                 function getUndoMgrGraphic(){
                     if(undoManager && typeof undoManager._historyStack[0] != "undefined")
                     {
+                        var globalId = GenerateUID.generate();
+                        var uniqueId = getUID(globalId,0);
+                        if(uniqueId == false){
+                            console.log("unable to generate globalID that is unique");
+                            return {}
+                        }
+
                         var graphic = undoManager._historyStack[0]._addedGraphic;
                         graphic.attributes = {
                             "ObjectId":6669,
-                            "GlobalID":GenerateUID.generate(),
+                            "GlobalID":uniqueId,
                             "CreationDate":1395953482000,
                             "Creator":"",
                             "EditDate": 1395953482000,
