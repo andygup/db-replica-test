@@ -266,24 +266,30 @@
                             localStorage.setItem(REPLICA_LAYER_SERVERGENS_KEY,JSON.stringify(response.layerServerGens));
                         });
                     }
-                    else{
-                        console.log("no replica id exists in localstorage")
-                        getReplicasList(function(response,err){
-                            if(response != null){
-                                console.log(response)
-                                var select = document.getElementById("selectReplicaId");
-                                var length = response.length;
 
-                                for(var i = 0; i < length; i++){
-                                    var opt = response[i];
-                                    var element = document.createElement("option");
-                                    element.textContent = opt.replicaName;
-                                    element.value = opt.replicaID;
-                                    select.appendChild(element);
+                    console.log("no replica id exists in localstorage")
+                    getReplicasList(function(response,err){
+                        //Populate the pulldown
+                        if(response != null){
+                            console.log(response)
+                            var select = document.getElementById("selectReplicaId");
+                            var length = response.length;
+
+                            for(var i = 0; i < length; i++){
+                                var opt = response[i];
+                                var element = document.createElement("option");
+                                element.textContent = opt.replicaName;
+                                element.value = opt.replicaID;
+
+                                if(opt.replicaID == replicaId){
+                                    element.selected = true;
                                 }
+
+                                select.appendChild(element);
                             }
-                        });
-                    }
+                        }
+                    });
+
                 });
 
                 map.on("click",function(evt){
@@ -504,8 +510,10 @@
                     localStorage.setItem(REPLICA_LAYER0_KEY,JSON.stringify(response));
                     console.log("Success: ", response.layers);
                     alert("Replica retrieved successfully");
-                    btnRedo.display = "inline";
-                    btnUndo.display = "inline";
+
+                    //Make undo redo editing buttons visible
+                    btnRedo.style.display = "inline";
+                    btnUndo.style.display = "inline";
                 }
 
                 function addLocalReplicaToMap(){
@@ -565,7 +573,7 @@
 
     <form id="replicaForm" class="right-form">
         <select id="selectReplicaId" onchange="selectIdChange(this)">
-            <option>Choose Replica ID</option>
+            <option>Set Replica ID</option>
         </select>
     </form>
     <button class="right-btn" id="btn-undo">Undo</button>
