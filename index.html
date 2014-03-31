@@ -260,7 +260,7 @@
                     console.log("map loaded");
 
                     var replicaId = localStorage.getItem(REPLICA_ID_KEY);
-                    if(replicaId && REPLICA_USE_EXISTING == true){
+                    if(replicaId != null && REPLICA_USE_EXISTING == true){
                         getReplicasInfos(replicaId,function(response,err){
                             console.log("replica! " + JSON.stringify(response.layerServerGens));
                             localStorage.setItem(REPLICA_LAYER_SERVERGENS_KEY,JSON.stringify(response.layerServerGens));
@@ -551,7 +551,15 @@
                 }
 
                 function handleCreateReplicaSuccess(response){
+                    //store the replica locally
                     localStorage.setItem(REPLICA_LAYER0_KEY,JSON.stringify(response));
+
+                    //store the replica id locally
+                    localStorage.setItem(REPLICA_ID_KEY, response.replicaID);
+
+                    //store the servergens key locally
+                    localStorage.setItem(REPLICA_LAYER_SERVERGENS_KEY,JSON.stringify(response.layerServerGens));
+
                     console.log("Successfully retrieved replica: ", response.layers);
                     alert("Replica retrieved successfully");
                 }
