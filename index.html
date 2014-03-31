@@ -262,7 +262,7 @@
                     var replicaId = localStorage.getItem(REPLICA_ID_KEY);
                     if(replicaId && REPLICA_USE_EXISTING == true){
                         getReplicasInfos(replicaId,function(response,err){
-                            console.log("replica! " + response.layerServerGens);
+                            console.log("replica! " + JSON.stringify(response.layerServerGens));
                             localStorage.setItem(REPLICA_LAYER_SERVERGENS_KEY,JSON.stringify(response.layerServerGens));
                         });
                     }
@@ -321,7 +321,7 @@
                     btnGetReplica = document.getElementById("btn-get-replica");
                     btnSyncReplica = document.getElementById("btn-sync-replica");
                     btnGetLayer = document.getElementById("btn-get-layer");
-                    btnUnregisterReplica = document.getElementById("btn-btn-unregister-replica");
+                    btnUnregisterReplica = document.getElementById("btn-unregister-replica");
 
                     btnGetReplica.onclick = function(evt){
                         createReplica();
@@ -484,7 +484,9 @@
                     },{usePost:true});
                     layersRequest.then(
                             function(response) {
-                                callback(response,null);
+                                if(response.success == true){
+                                    callback(response,null);
+                                }
                                 console.log("Unregister replica: " + JSON.stringify(response))
                             }, function(error) {
                                 callback(null,error);
