@@ -518,17 +518,23 @@
 
                 function addLocalReplicaToMap(){
                     var t = JSON.parse(localStorage.getItem(REPLICA_LAYER0_KEY));
-                    var featureDefinition = {
-                        "layerDefinition":layerDef,
-                        "featureSet":{
-                            "features": t.layers[0].features,
-                            "geometryType": "esriGeometryPoint"
+
+                    if(t == null){
+                        alert("Replica is not available locally.")
+                    }
+                    else{
+                        var featureDefinition = {
+                            "layerDefinition":layerDef,
+                            "featureSet":{
+                                "features": t.layers[0].features,
+                                "geometryType": "esriGeometryPoint"
+                            }
+
                         }
 
+                        featureLayer0 = new FeatureLayer(featureDefinition);
+                        map.addLayer(featureLayer0);
                     }
-
-                    featureLayer0 = new FeatureLayer(featureDefinition);
-                    map.addLayer(featureLayer0);
                 }
 
                 function createUpdateReplicaJSON(edits){
