@@ -272,23 +272,9 @@
                         //Populate the pulldown
                         if(response != null){
                             console.log(response)
-                            var select = document.getElementById("selectReplicaId");
-                            var length = response.length;
-
-                            for(var i = 0; i < length; i++){
-                                var opt = response[i];
-                                var element = document.createElement("option");
-                                element.textContent = opt.replicaName;
-                                element.value = opt.replicaID;
-
-                                if(opt.replicaID == replicaId){
-                                    element.selected = true;
-                                }
-
-                                select.appendChild(element);
-                            }
+                            populatePulldown(response,replicaId);
                         }
-                    });
+                    }.bind(this));
 
                 });
 
@@ -358,6 +344,24 @@
                             });
                         }
                     }.bind(this)
+                }
+
+                function populatePulldown(response,replicaId){
+                    var select = document.getElementById("selectReplicaId");
+                    var length = response.length;
+
+                    for(var i = 0; i < length; i++){
+                        var opt = response[i];
+                        var element = document.createElement("option");
+                        element.textContent = opt.replicaName;
+                        element.value = opt.replicaID;
+
+                        if(opt.replicaID == replicaId){
+                            element.selected = true;
+                        }
+
+                        select.appendChild(element);
+                    }
                 }
 
                 function setupUndoManager(){
@@ -559,6 +563,8 @@
 
                     //store the servergens key locally
                     localStorage.setItem(REPLICA_LAYER_SERVERGENS_KEY,JSON.stringify(response.layerServerGens));
+
+                    populatePulldown(response,response.replicaID);
 
                     console.log("Successfully retrieved replica: ", response.layers);
                     alert("Replica retrieved successfully");
