@@ -336,6 +336,14 @@
                         else{
                             unRegisterReplica(id,function(response,err){
                                 if(response != null){
+                                    getReplicasList(function(response,err){
+                                        //Populate the pulldown
+                                        if(response != null){
+                                            console.log(response)
+                                            populatePulldown(response,replicaId);
+                                        }
+                                    }.bind(this));
+
                                     alert("Replica #" + id + " successfully unregistered.")
                                 }
                                 else{
