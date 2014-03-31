@@ -260,7 +260,7 @@
                     console.log("map loaded");
 
                     var replicaId = localStorage.getItem(REPLICA_ID_KEY);
-                    if(replicaId != null && REPLICA_USE_EXISTING == true){
+                    if(replicaId != "null" && REPLICA_USE_EXISTING == true){
                         getReplicasInfos(replicaId,function(response,err){
                             console.log("replica! " + JSON.stringify(response.layerServerGens));
                             localStorage.setItem(REPLICA_LAYER_SERVERGENS_KEY,JSON.stringify(response.layerServerGens));
@@ -271,7 +271,6 @@
                     getReplicasList(function(response,err){
                         //Populate the pulldown
                         if(response != null){
-                            console.log(response)
                             populatePulldown(response,replicaId);
                         }
                     }.bind(this));
@@ -333,6 +332,7 @@
                     }.bind(this)
 
                     btnUnregisterReplica.onclick = function(evt){
+
                         var c = confirm("Are you sure you want to unregister?")
                         if(c == false)return;
 
@@ -343,11 +343,11 @@
                         else{
                             unRegisterReplica(id,function(response,err){
                                 if(response != null){
+                                    localStorage.setItem(REPLICA_ID_KEY,null); // set replica id to null
                                     getReplicasList(function(response,err){
                                         //Populate the pulldown
                                         if(response != null){
-                                            console.log(response)
-                                            populatePulldown(response,replicaId);
+                                            populatePulldown(response,null);
                                         }
                                     }.bind(this));
 
@@ -363,15 +363,26 @@
 
                 function populatePulldown(response,replicaId){
                     var select = document.getElementById("selectReplicaId");
-                    var length = response.length;
+
+                    while(select.firstChild){
+                        select.removeChild(select.firstChild);
+                    }
+
+                    var length = response.length + 1;
 
                     for(var i = 0; i < length; i++){
                         var opt = response[i];
                         var element = document.createElement("option");
-                        element.textContent = opt.replicaName;
-                        element.value = opt.replicaID;
 
-                        if(opt.replicaID == replicaId){
+                        if(i == 0){
+                            element.textContent = "Set Replica ID";
+                        }
+                        else{
+                            element.textContent = opt.replicaName;
+                            element.value = opt.replicaID;
+                        }
+
+                        if(replicaId != null && opt.replicaID == replicaId){
                             element.selected = true;
                         }
 
