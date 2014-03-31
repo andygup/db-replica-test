@@ -340,7 +340,10 @@
                     }.bind(this)
 
                     btnUnregisterReplica.onclick = function(evt){
-                        var id = localStorage.getItem(REPLICA_LAYER0_KEY);
+                        var c = confirm("Are you sure you want to unregister?")
+                        if(c == false)return;
+
+                        var id = localStorage.getItem(REPLICA_ID_KEY);
                         if(id == null){
                             alert("There is no replica id available in local storage");
                         }
@@ -549,12 +552,8 @@
 
                 function handleCreateReplicaSuccess(response){
                     localStorage.setItem(REPLICA_LAYER0_KEY,JSON.stringify(response));
-                    console.log("Success: ", response.layers);
+                    console.log("Successfully retrieved replica: ", response.layers);
                     alert("Replica retrieved successfully");
-
-                    //Make undo redo editing buttons visible
-                    btnRedo.style.display = "inline";
-                    btnUndo.style.display = "inline";
                 }
 
                 function addLocalReplicaToMap(){
@@ -575,6 +574,10 @@
 
                         featureLayer0 = new FeatureLayer(featureDefinition);
                         map.addLayer(featureLayer0);
+
+                        //Make undo redo editing buttons visible
+                        btnRedo.style.display = "inline";
+                        btnUndo.style.display = "inline";
                     }
                 }
 
