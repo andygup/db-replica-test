@@ -317,18 +317,25 @@
                     }.bind(this)
 
                     btnSyncReplica.onclick = function(evt){
-                        var edits = getUndoMgrGraphic();
-                        var replicaJson = JSON.stringify(createUpdateReplicaJSON(edits));
-                        var unescapedJson = replicaJson.replace(/\\"/g, '');
-                        console.log("replicaJSON to be committed: " + unescapedJson)
-                        synchronizeReplica(unescapedJson,function(response,err){
-                            if(response != null){
-                                alert("Successfully synced replica")
+
+                        getUndoMgrGraphic(function(result){
+                            if(result != null){
+                                var replicaJson = JSON.stringify(createUpdateReplicaJSON(result));
+                                var unescapedJson = replicaJson.replace(/\\"/g, '');
+                                console.log("replicaJSON to be committed: " + unescapedJson)
+                                synchronizeReplica(unescapedJson,function(response,err){
+                                    if(response != null){
+                                        alert("Successfully synced replica")
+                                    }
+                                    else{
+                                        alert("There was a problem syncing the replica. " + JSON.stringify(err));
+                                    }
+                                });
                             }
                             else{
-                                alert("There was a problem syncing the replica. " + JSON.stringify(err));
+                                console.log("btnSyncReplica: There was a problem creating the sync graphic.");
                             }
-                        });
+                        }.bind(this));
                     }.bind(this)
 
                     btnUnregisterReplica.onclick = function(evt){
@@ -572,13 +579,13 @@
                     return gExtent.xmin + "," + gExtent.ymin + "," + gExtent.xmax + "," + gExtent.ymax;
                 }
 
-                function getUID(globalId,count){
+                function getUID(globalId,count,callback){
 
-                    if(count > 3)return false
+                    if(count > 3)callback(false);
 
-                    return validateGlobalID(globalId,function(response,err){
+                    validateGlobalID(globalId,function(response,err){
                         if(response.features.length == 0){
-                            return true;
+                            callback(true);
                         }
                         else{
                             var globalId = GenerateUID.generate();
@@ -587,45 +594,47 @@
                     })
                 }
 
-                function getUndoMgrGraphic(){
+                function getUndoMgrGraphic(callback){
                     if(undoManager && typeof undoManager._historyStack[0] != "undefined")
                     {
                         var globalId = GenerateUID.generate();
-                        var uniqueId = getUID(globalId,0);
-                        if(uniqueId == false){
-                            console.log("unable to generate globalID that is unique");
-                            return {}
-                        }
+                        getUID(globalId,0,function(evt){
+                            if(evt == false){
+                                console.log("unable to generate globalID that is unique");
+                                callback(null)
+                            }
+                            else{
+                                var graphic = undoManager._historyStack[0]._addedGraphic;
+                                graphic.attributes = {
+                                    "ObjectId":6669,
+                                    "GlobalID":globalId,
+                                    "CreationDate":1395953482000,
+                                    "Creator":"",
+                                    "EditDate": 1395953482000,
+                                    "Editor": "",
+                                    "id":"10000",
+                                    "brewery_id" : null,
+                                    "latitude" : 30.22340012,
+                                    "longitude" : -97.7696991,
+                                    "accuracy" : "ROOFTOP",
+                                    "name" : "(512) Brewing Company",
+                                    "address1" : "407 Radam, F200",
+                                    "address2" : "",
+                                    "city" : "Austin",
+                                    "state" : "Texas",
+                                    "code" : 78745,
+                                    "country" : "United States",
+                                    "phone" : "512.707.2337",
+                                    "website" : "",
+                                    "descript" : "(512) Brewing Company is a microbrewery located in the heart of Austin that brews for the community using as many local, domestic and organic ingredients as possible."
+                                }
 
-                        var graphic = undoManager._historyStack[0]._addedGraphic;
-                        graphic.attributes = {
-                            "ObjectId":6669,
-                            "GlobalID":uniqueId,
-                            "CreationDate":1395953482000,
-                            "Creator":"",
-                            "EditDate": 1395953482000,
-                            "Editor": "",
-                            "id":"10000",
-                            "brewery_id" : null,
-                            "latitude" : 30.22340012,
-                            "longitude" : -97.7696991,
-                            "accuracy" : "ROOFTOP",
-                            "name" : "(512) Brewing Company",
-                            "address1" : "407 Radam, F200",
-                            "address2" : "",
-                            "city" : "Austin",
-                            "state" : "Texas",
-                            "code" : 78745,
-                            "country" : "United States",
-                            "phone" : "512.707.2337",
-                            "website" : "",
-                            "descript" : "(512) Brewing Company is a microbrewery located in the heart of Austin that brews for the community using as many local, domestic and organic ingredients as possible."
-                        }
-
-                        return graphic.toJson();
+                                callback(graphic.toJson());
+                            }
+                        }.bind(this));
                     }
                     else{
-                        return {}
+                        callback(null)
                     }
 
                 }
