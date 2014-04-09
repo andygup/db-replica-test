@@ -236,10 +236,11 @@
             "esri/undoManager",
             "esri/symbols/PictureMarkerSymbol",
             "dojo/_base/connect",
+            "dojox/uuid/generateRandomUuid",
             "modules/customoperation",
             "modules/generateUID",
             "dojo/domReady!"],
-            function(Map,esriRequest,FeatureLayer,UndoManager,PictureMarkerSymbol,connect,CustomOperation,GenerateUID) {
+            function(Map,esriRequest,FeatureLayer,UndoManager,PictureMarkerSymbol,connect,Uuid,CustomOperation,GenerateUID) {
                 map = new Map("map", {
                     basemap: "topo",
                     center: [-104.98,39.74], // long, lat
@@ -597,7 +598,7 @@
                 function getUndoMgrGraphic(callback){
                     if(undoManager && typeof undoManager._historyStack[0] != "undefined")
                     {
-                        var globalId = GenerateUID.generate();
+                        var globalId = Uuid();
                         getUID(globalId,0,function(evt){
                             if(evt == false){
                                 console.log("unable to generate globalID that is unique");
